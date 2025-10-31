@@ -85,6 +85,53 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
+# Git versioning before deployment
+if [ -d "$PROJECT_ROOT/.git" ]; then
+  echo -e "${BLUE}📦 Git Versioning...${NC}"
+
+  cd "$PROJECT_ROOT"
+
+  # Check if there are changes to commit
+  if ! git diff --quiet || ! git diff --cached --quiet || [ -n "$(git ls-files --others --exclude-standard)" ]; then
+
+    # Get deployment target info
+    if [ "$TARGET_DIR" = "$PROJECT_ROOT" ]; then
+      DEPLOY_TARGET="all workflows"
+    else
+      DEPLOY_TARGET="$(basename "$TARGET_DIR")"
+    fi
+
+    # Get current timestamp
+    TIMESTAMP=$(date "+%Y-%m-%d %H:%M:%S")
+
+    # Stage all changes
+    git add .
+
+    # Create commit with detailed message
+    COMMIT_MSG="Pre-deployment snapshot: $DEPLOY_TARGET
+
+Timestamp: $TIMESTAMP
+Target: $DEPLOY_TARGET
+Mode: $([ "$DRY_RUN" = "true" ] && echo "dry-run" || echo "production")
+
+🤖 Automated commit before n8n deployment
+
+Co-Authored-By: Claude <noreply@anthropic.com>"
+
+    if git commit -m "$COMMIT_MSG"; then
+      COMMIT_HASH=$(git rev-parse --short HEAD)
+      echo -e "${GREEN}✅ Committed changes: $COMMIT_HASH${NC}"
+      echo -e "${YELLOW}💡 Push to GitHub: git push origin main${NC}"
+    else
+      echo -e "${YELLOW}⚠️  No changes to commit${NC}"
+    fi
+  else
+    echo -e "${GREEN}✓ No changes since last commit${NC}"
+  fi
+
+  echo ""
+fi
+
 # Run deployment
 echo -e "${GREEN}🚀 Starting deployment...${NC}"
 echo ""
