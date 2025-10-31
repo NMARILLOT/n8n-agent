@@ -461,17 +461,7 @@
         ]
       ]
     },
-    "Claude Sonnet 4.5": {
-      "ai_languageModel": [
-        [
-          {
-            "node": "Agent Dev Ideas",
-            "type": "ai_languageModel",
-            "index": 0
-          }
-        ]
-      ]
-    },
+    "Claude Sonnet 4.5": {},
     "MCP Client - Projects": {
       "ai_tool": [
         [
@@ -520,6 +510,17 @@
           {
             "node": "Agent Dev Ideas",
             "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GPT-4o": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Agent Dev Ideas",
+            "type": "ai_languageModel",
             "index": 0
           }
         ]
