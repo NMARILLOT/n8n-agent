@@ -1,0 +1,2393 @@
+{
+  "name": "MCP - Idée Dev Nico (Perso)",
+  "nodes": [
+    {
+      "parameters": {
+        "authentication": "bearerAuth",
+        "path": "projects-mhms"
+      },
+      "type": "@n8n/n8n-nodes-langchain.mcpTrigger",
+      "typeVersion": 1,
+      "position": [
+        -1088,
+        320
+      ],
+      "id": "6b1b5a12-894d-47ef-ae4e-de790b03be0d",
+      "name": "MCP Server Trigger",
+      "webhookId": "projects-mhms",
+      "credentials": {
+        "httpBearerAuth": {
+          "id": "aCtUA2HFdnNADDGH",
+          "name": "Notion MCPAuth"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "name": "search_projects",
+        "description": "Recherche de projets MHMS par mot-clé dans le nom, description ou tech stack. Retourne les projets correspondants avec ID, type, catégorie, statut et priorité.",
+        "workflowId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "={{ $workflow.id }}"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "operation": "search",
+            "query": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('query', ``, 'string') }}",
+            "id": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('id', ``, 'string') }}",
+            "name": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('name', ``, 'string') }}",
+            "category": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('category', ``, 'string') }}",
+            "type": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('type', ``, 'string') }}",
+            "description": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('description', ``, 'string') }}",
+            "priority": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('priority', ``, 'string') }}",
+            "status": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('status', ``, 'string') }}",
+            "tech_stack": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('tech_stack', ``, 'string') }}",
+            "project_id": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('project_id', ``, 'string') }}",
+            "title": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('title', ``, 'string') }}",
+            "content": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('content', ``, 'string') }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "operation",
+              "displayName": "operation",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "query",
+              "displayName": "query",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "name",
+              "displayName": "name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "category",
+              "displayName": "category",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "type",
+              "displayName": "type",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "description",
+              "displayName": "description",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "priority",
+              "displayName": "priority",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "tech_stack",
+              "displayName": "tech_stack",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "project_id",
+              "displayName": "project_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "title",
+              "displayName": "title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "content",
+              "displayName": "content",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.1,
+      "position": [
+        -1264,
+        480
+      ],
+      "id": "350a4687-ba00-45e8-8a23-e00f8352b9d2",
+      "name": "search_projects"
+    },
+    {
+      "parameters": {
+        "name": "get_project_by_id",
+        "description": "Récupère les détails complets d'un projet spécifique par son ID (format PROJ-XXX).",
+        "workflowId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "={{ $workflow.id }}"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "operation": "get_by_id",
+            "id": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('id', ``, 'string') }}",
+            "query": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('query', ``, 'string') }}",
+            "name": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('name', ``, 'string') }}",
+            "category": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('category', ``, 'string') }}",
+            "type": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('type', ``, 'string') }}",
+            "description": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('description', ``, 'string') }}",
+            "priority": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('priority', ``, 'string') }}",
+            "status": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('status', ``, 'string') }}",
+            "tech_stack": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('tech_stack', ``, 'string') }}",
+            "project_id": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('project_id', ``, 'string') }}",
+            "title": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('title', ``, 'string') }}",
+            "content": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('content', ``, 'string') }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "operation",
+              "displayName": "operation",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "query",
+              "displayName": "query",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "name",
+              "displayName": "name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "category",
+              "displayName": "category",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "type",
+              "displayName": "type",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "description",
+              "displayName": "description",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "priority",
+              "displayName": "priority",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "tech_stack",
+              "displayName": "tech_stack",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "project_id",
+              "displayName": "project_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "title",
+              "displayName": "title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "content",
+              "displayName": "content",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.1,
+      "position": [
+        -1152,
+        560
+      ],
+      "id": "4ce5aff1-c6bc-4b02-8817-2c24aa11865e",
+      "name": "get_project_by_id"
+    },
+    {
+      "parameters": {
+        "name": "list_categories",
+        "description": "Liste toutes les catégories et types disponibles pour les projets MHMS.",
+        "workflowId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "={{ $workflow.id }}"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "operation": "list_categories",
+            "query": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('query', ``, 'string') }}",
+            "id": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('id', ``, 'string') }}",
+            "name": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('name', ``, 'string') }}",
+            "category": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('category', ``, 'string') }}",
+            "type": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('type', ``, 'string') }}",
+            "description": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('description', ``, 'string') }}",
+            "priority": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('priority', ``, 'string') }}",
+            "status": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('status', ``, 'string') }}",
+            "tech_stack": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('tech_stack', ``, 'string') }}",
+            "project_id": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('project_id', ``, 'string') }}",
+            "title": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('title', ``, 'string') }}",
+            "content": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('content', ``, 'string') }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "operation",
+              "displayName": "operation",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "query",
+              "displayName": "query",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "name",
+              "displayName": "name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "category",
+              "displayName": "category",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "type",
+              "displayName": "type",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "description",
+              "displayName": "description",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "priority",
+              "displayName": "priority",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "tech_stack",
+              "displayName": "tech_stack",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "project_id",
+              "displayName": "project_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "title",
+              "displayName": "title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "content",
+              "displayName": "content",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.1,
+      "position": [
+        -1024,
+        640
+      ],
+      "id": "0ff937df-cb26-4dde-bf0c-e79637ca8db4",
+      "name": "list_categories"
+    },
+    {
+      "parameters": {
+        "name": "create_project",
+        "description": "Crée un nouveau projet MHMS avec tous les détails nécessaires. Paramètres : name (string), category (Fonctionnalité|UX/UI|Infrastructure|Tooling|Expérimentation), type (App|Site|Feature|Outil interne|Proof of Concept), description (string), priority (Urgent|Haute|Moyenne|Basse|Idée), status (💡 Idée|🚧 En cours|⏳ En attente|✅ Terminé|❌ Abandonné), tech_stack (string, séparés par virgules).",
+        "workflowId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "={{ $workflow.id }}"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "operation": "create_project",
+            "name": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('name', ``, 'string') }}",
+            "category": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('category', `Fonctionnalité`, 'string') }}",
+            "type": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('type', `Feature`, 'string') }}",
+            "description": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('description', ``, 'string') }}",
+            "priority": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('priority', `Moyenne`, 'string') }}",
+            "status": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('status', `💡 Idée`, 'string') }}",
+            "tech_stack": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('tech_stack', ``, 'string') }}",
+            "query": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('query', ``, 'string') }}",
+            "id": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('id', ``, 'string') }}",
+            "project_id": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('project_id', ``, 'string') }}",
+            "title": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('title', ``, 'string') }}",
+            "content": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('content', ``, 'string') }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "operation",
+              "displayName": "operation",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "query",
+              "displayName": "query",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "name",
+              "displayName": "name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "category",
+              "displayName": "category",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "type",
+              "displayName": "type",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "description",
+              "displayName": "description",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "priority",
+              "displayName": "priority",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "tech_stack",
+              "displayName": "tech_stack",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "project_id",
+              "displayName": "project_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "title",
+              "displayName": "title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "content",
+              "displayName": "content",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.1,
+      "position": [
+        -896,
+        720
+      ],
+      "id": "e1e837e1-fd51-47f9-b778-c01668286fb8",
+      "name": "create_project"
+    },
+    {
+      "parameters": {
+        "name": "create_idea",
+        "description": "Ajoute une nouvelle idée à un projet MHMS existant. Paramètres : project_id (string, format PROJ-XXX), title (string), content (string), category (Nouvelle fonctionnalité|Amélioration|Bug fix|Refactoring|Documentation).",
+        "workflowId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "={{ $workflow.id }}"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "operation": "create_idea",
+            "project_id": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('project_id', ``, 'string') }}",
+            "title": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('title', ``, 'string') }}",
+            "content": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('content', ``, 'string') }}",
+            "category": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('category', `Nouvelle fonctionnalité`, 'string') }}",
+            "query": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('query', ``, 'string') }}",
+            "id": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('id', ``, 'string') }}",
+            "name": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('name', ``, 'string') }}",
+            "type": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('type', ``, 'string') }}",
+            "description": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('description', ``, 'string') }}",
+            "priority": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('priority', ``, 'string') }}",
+            "status": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('status', ``, 'string') }}",
+            "tech_stack": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('tech_stack', ``, 'string') }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "operation",
+              "displayName": "operation",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "query",
+              "displayName": "query",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "name",
+              "displayName": "name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "category",
+              "displayName": "category",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "type",
+              "displayName": "type",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "description",
+              "displayName": "description",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "priority",
+              "displayName": "priority",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "tech_stack",
+              "displayName": "tech_stack",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "project_id",
+              "displayName": "project_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "title",
+              "displayName": "title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "content",
+              "displayName": "content",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.1,
+      "position": [
+        -784,
+        480
+      ],
+      "id": "e2970b3b-a9b7-472e-a10b-7fe507429efb",
+      "name": "create_idea"
+    },
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "operation"
+            },
+            {
+              "name": "query"
+            },
+            {
+              "name": "id"
+            },
+            {
+              "name": "name"
+            },
+            {
+              "name": "category"
+            },
+            {
+              "name": "type"
+            },
+            {
+              "name": "description"
+            },
+            {
+              "name": "priority"
+            },
+            {
+              "name": "status"
+            },
+            {
+              "name": "tech_stack"
+            },
+            {
+              "name": "project_id"
+            },
+            {
+              "name": "title"
+            },
+            {
+              "name": "content"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -544,
+        512
+      ],
+      "id": "ae4d132b-f896-4408-8aca-e072b614a3c7",
+      "name": "Execute Workflow Trigger"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.operation }}",
+                    "rightValue": "search",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "search"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.operation }}",
+                    "rightValue": "get_by_id",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "get_by_id"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.operation }}",
+                    "rightValue": "list_categories",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "list_cat"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.operation }}",
+                    "rightValue": "create_project",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "create_proj"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.operation }}",
+                    "rightValue": "create_idea",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "create_idea"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.operation }}",
+                    "rightValue": "search_ideas",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "search_ideas"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.operation }}",
+                    "rightValue": "get_idea_by_id",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "get_idea"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.operation }}",
+                    "rightValue": "update_idea",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "update_idea"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.operation }}",
+                    "rightValue": "delete_idea",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "delete_idea"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -320,
+        512
+      ],
+      "id": "14c022c3-9f32-42f5-8bfe-bd7fb91cc382",
+      "name": "Switch Operation"
+    },
+    {
+      "parameters": {
+        "resource": "databasePage",
+        "operation": "getAll",
+        "databaseId": {
+          "__rl": true,
+          "value": "29b2c1373ccc8042a8e2e096b12ca4e4",
+          "mode": "id"
+        },
+        "returnAll": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 2.2,
+      "position": [
+        -96,
+        160
+      ],
+      "id": "e04086e0-1de7-46e1-909c-093667b32570",
+      "name": "Notion - Search Projects",
+      "credentials": {
+        "notionApi": {
+          "id": "cT2CMYYw9BByHYSg",
+          "name": "Notion account - nicolas@mhms.fr"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const query = ($input.first().json.query || '').toLowerCase();\nconst allProjects = $('Notion - Search Projects').all();\n\nconst matching = allProjects.filter(item => {\n  const props = item.json;\n  const name = (props.property_nom || '').toLowerCase();\n  const desc = (props.property_description || '').toLowerCase();\n  const tech = (props.property_tech_stack || []).join(' ').toLowerCase();\n  const id = (props.property_id || '').toLowerCase();\n  \n  return name.includes(query) || desc.includes(query) || tech.includes(query) || id.includes(query);\n});\n\nconst results = matching.map(item => {\n  const props = item.json;\n  const id = props.property_id || 'N/A';\n  const name = props.property_nom || '';\n  const type = props.property_type || 'N/A';\n  const category = props.property_cat_gorie || 'N/A';\n  const status = props.property_statut || 'N/A';\n  const priority = props.property_priorit_ || 'N/A';\n  const tech = (props.property_tech_stack || []).join(', ') || 'N/A';\n  const url = props.url || '';\n  \n  return `[${id}] ${name}\\nType: ${type} | Catégorie: ${category}\\nStatut: ${status} | Priorité: ${priority}\\nTech: ${tech}\\nURL: ${url}`;\n});\n\nconst response = results.length > 0 \n  ? results.join('\\n\\n---\\n\\n')\n  : `Aucun projet trouvé pour \"${query}\".`;\n\nreturn [{ json: { response } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        112,
+        160
+      ],
+      "id": "24b80f48-8a33-4b2b-a67a-51970cb62109",
+      "name": "Format Search Projects"
+    },
+    {
+      "parameters": {
+        "resource": "databasePage",
+        "operation": "getAll",
+        "databaseId": {
+          "__rl": true,
+          "value": "29b2c1373ccc8042a8e2e096b12ca4e4",
+          "mode": "id"
+        },
+        "returnAll": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 2.2,
+      "position": [
+        -96,
+        352
+      ],
+      "id": "0a32ab48-d45d-4230-a94c-edf93bd499fd",
+      "name": "Notion - Get Project By ID",
+      "credentials": {
+        "notionApi": {
+          "id": "cT2CMYYw9BByHYSg",
+          "name": "Notion account - nicolas@mhms.fr"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const requestedId = ($input.first().json.id || '').trim();\nconst allProjects = $('Notion - Get Project By ID').all();\n\nconst project = allProjects.find(item => {\n  const id = (item.json.property_id || '').trim();\n  return id === requestedId;\n});\n\nif (!project) {\n  return [{ json: { response: `Projet \"${requestedId}\" non trouvé.` } }];\n}\n\nconst props = project.json;\nconst id = props.property_id || 'N/A';\nconst name = props.property_nom || '';\nconst type = props.property_type || 'N/A';\nconst category = props.property_cat_gorie || 'N/A';\nconst description = props.property_description || 'N/A';\nconst status = props.property_statut || 'N/A';\nconst priority = props.property_priorit_ || 'N/A';\nconst tech = (props.property_tech_stack || []).join(', ') || 'N/A';\nconst url = props.url || '';\n\nconst response = `[${id}] ${name}\\n\\nDescription: ${description}\\n\\nType: ${type}\\nCatégorie: ${category}\\nStatut: ${status}\\nPriorité: ${priority}\\nTech Stack: ${tech}\\n\\nURL: ${url}`;\n\nreturn [{ json: { response } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        112,
+        352
+      ],
+      "id": "ed9c1278-8900-4b1d-af36-d1a9499c5bf5",
+      "name": "Format Get Project By ID"
+    },
+    {
+      "parameters": {
+        "jsCode": "const categories = [\n  { name: \"Fonctionnalité\", description: \"Nouvelles fonctionnalités produit\" },\n  { name: \"UX/UI\", description: \"Améliorations interface utilisateur\" },\n  { name: \"Infrastructure\", description: \"Backend, DevOps, architecture\" },\n  { name: \"Tooling\", description: \"Outils internes et automatisation\" },\n  { name: \"Expérimentation\", description: \"POCs et tests\" }\n];\n\nconst types = [\n  { name: \"App\", description: \"Application complète\" },\n  { name: \"Site\", description: \"Site web ou landing page\" },\n  { name: \"Feature\", description: \"Fonctionnalité isolée\" },\n  { name: \"Outil interne\", description: \"Outil pour l'équipe\" },\n  { name: \"Proof of Concept\", description: \"Test de faisabilité\" }\n];\n\nconst ideaCategories = [\n  \"Nouvelle fonctionnalité\",\n  \"Amélioration\",\n  \"Bug fix\",\n  \"Refactoring\",\n  \"Documentation\"\n];\n\nlet response = \"📂 Catégories de projets :\\n\\n\";\nresponse += categories.map(c => `• ${c.name}: ${c.description}`).join('\\n');\nresponse += \"\\n\\n🏷️ Types de projets :\\n\\n\";\nresponse += types.map(t => `• ${t.name}: ${t.description}`).join('\\n');\nresponse += \"\\n\\n💡 Catégories d'idées :\\n\\n\";\nresponse += ideaCategories.map(ic => `• ${ic}`).join('\\n');\n\nreturn [{ json: { response } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -96,
+        560
+      ],
+      "id": "115c0189-7191-445f-8fec-dd611d782db2",
+      "name": "List Categories"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Générer un ID unique\nconst characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';\nlet id = 'PROJ-';\nfor (let i = 0; i < 8; i++) {\n  id += characters.charAt(Math.floor(Math.random() * characters.length));\n}\n\n// Parser le tech_stack\nconst techStackString = $input.first().json.tech_stack || '';\nconst techStackArray = techStackString\n  .split(',')\n  .map(t => t.trim())\n  .filter(t => t.length > 0);\n\nreturn [{\n  json: {\n    id: id,\n    name: $input.first().json.name,\n    category: $input.first().json.category,\n    type: $input.first().json.type,\n    description: $input.first().json.description,\n    priority: $input.first().json.priority,\n    status: $input.first().json.status,\n    tech_stack: techStackArray\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -96,
+        752
+      ],
+      "id": "697f09a0-0afb-4c84-afe9-377557a8e7be",
+      "name": "Generate Project ID"
+    },
+    {
+      "parameters": {
+        "resource": "databasePage",
+        "databaseId": {
+          "__rl": true,
+          "value": "29b2c1373ccc8042a8e2e096b12ca4e4",
+          "mode": "id"
+        },
+        "propertiesUi": {
+          "propertyValues": [
+            {
+              "key": "ID|rich_text",
+              "textContent": "={{ $json.id }}"
+            },
+            {
+              "key": "Nom du projet|title",
+              "title": "={{ $json.name }}"
+            },
+            {
+              "key": "Catégorie|select",
+              "selectValue": "={{ $json.category }}"
+            },
+            {
+              "key": "Type|select",
+              "selectValue": "={{ $json.type }}"
+            },
+            {
+              "key": "Description|rich_text",
+              "textContent": "={{ $json.description }}"
+            },
+            {
+              "key": "Priorité|select",
+              "selectValue": "={{ $json.priority }}"
+            },
+            {
+              "key": "Statut|status",
+              "statusValue": "={{ $json.status }}"
+            },
+            {
+              "key": "Stack technique|multi_select",
+              "multiSelectValue": "={{ $json.tech_stack }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 2.2,
+      "position": [
+        112,
+        752
+      ],
+      "id": "aa4716fe-1335-491a-9f29-ed41cc749649",
+      "name": "Notion - Create Project",
+      "credentials": {
+        "notionApi": {
+          "id": "cT2CMYYw9BByHYSg",
+          "name": "Notion account - nicolas@mhms.fr"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const projectData = $('Notion - Create Project').first().json;\nconst id = $('Generate Project ID').first().json.id;\nconst name = $('Generate Project ID').first().json.name;\nconst url = projectData.url || '';\n\nconst response = `✅ Projet créé !\\n\\nID: ${id}\\n${name}\\n\\n🔗 ${url}`;\n\nreturn [{ json: { response } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        432,
+        752
+      ],
+      "id": "e216befc-4dcc-4747-a30d-93369892769e",
+      "name": "Format Create Project Response"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Générer un ID unique pour l'idée\nconst characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';\nlet id = 'IDEA-';\nfor (let i = 0; i < 8; i++) {\n  id += characters.charAt(Math.floor(Math.random() * characters.length));\n}\n\nreturn [{\n  json: {\n    id: id,\n    project_id: $input.first().json.project_id,\n    title: $input.first().json.title,\n    content: $input.first().json.content,\n    category: $input.first().json.category\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -96,
+        928
+      ],
+      "id": "67c0b4d3-e6ce-4e8c-8ab3-8dace5aeff52",
+      "name": "Generate Idea ID"
+    },
+    {
+      "parameters": {
+        "resource": "databasePage",
+        "operation": "getAll",
+        "databaseId": {
+          "__rl": true,
+          "value": "29b2c1373ccc8042a8e2e096b12ca4e4",
+          "mode": "id"
+        },
+        "returnAll": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 2.2,
+      "position": [
+        112,
+        928
+      ],
+      "id": "b7804ed5-ae4c-43dd-9038-67bb0e684e18",
+      "name": "Notion - Get Project For Idea",
+      "credentials": {
+        "notionApi": {
+          "id": "cT2CMYYw9BByHYSg",
+          "name": "Notion account - nicolas@mhms.fr"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const requestedProjectId = $('Generate Idea ID').first().json.project_id;\nconst allProjects = $('Notion - Get Project For Idea').all();\n\nconst project = allProjects.find(item => {\n  const id = (item.json.property_id || '').trim();\n  return id === requestedProjectId;\n});\n\nif (!project) {\n  throw new Error(`Projet \"${requestedProjectId}\" non trouvé. Impossible de créer l'idée.`);\n}\n\nconst projectPageId = project.json.id; // L'ID de la page Notion\n\nreturn [{\n  json: {\n    id: $('Generate Idea ID').first().json.id,\n    project_page_id: projectPageId,\n    project_id: requestedProjectId,\n    title: $('Generate Idea ID').first().json.title,\n    content: $('Generate Idea ID').first().json.content,\n    category: $('Generate Idea ID').first().json.category\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        320,
+        928
+      ],
+      "id": "6a3d0fba-526f-4147-85e7-f6338f1ac907",
+      "name": "Find Project Page ID"
+    },
+    {
+      "parameters": {
+        "jsCode": "const ideaData = $('Notion - Create Idea1').first().json;\nconst id = $('Find Project Page ID').first().json.id;\nconst title = $('Find Project Page ID').first().json.title;\nconst projectId = $('Find Project Page ID').first().json.project_id;\nconst url = ideaData.url || '';\n\nconst response = `✅ Idée ajoutée !\\n\\nID: ${id}\\n${title}\\nProjet: ${projectId}\\n\\n🔗 ${url}`;\n\nreturn [{ json: { response } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        736,
+        928
+      ],
+      "id": "96e7a7cf-cca2-4ec9-8e67-153f99e1d01b",
+      "name": "Format Create Idea Response"
+    },
+    {
+      "parameters": {
+        "resource": "databasePage",
+        "databaseId": {
+          "__rl": true,
+          "value": "29b2c1373ccc807d9347ce519cabcac4",
+          "mode": "id"
+        },
+        "propertiesUi": {
+          "propertyValues": [
+            {
+              "key": "ID|rich_text",
+              "textContent": "={{ $json.id }}"
+            },
+            {
+              "key": "Titre de l'idée|title",
+              "title": "={{ $json.title }}"
+            },
+            {
+              "key": "Contenu|rich_text",
+              "textContent": "={{ $json.content }}"
+            },
+            {
+              "key": "Catégorie|select",
+              "selectValue": "={{ $json.category }}"
+            },
+            {
+              "key": "Traité|status",
+              "statusValue": "Pas commencé"
+            },
+            {
+              "key": "=Projet lié|relation",
+              "relationValue": [
+                "={{ $json.project_page_id }}"
+              ]
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 2.2,
+      "position": [
+        544,
+        928
+      ],
+      "id": "aa15ab1f-7370-4310-83ab-a5ab3ac10538",
+      "name": "Notion - Create Idea1",
+      "credentials": {
+        "notionApi": {
+          "id": "cT2CMYYw9BByHYSg",
+          "name": "Notion account - nicolas@mhms.fr"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "name": "search_ideas",
+        "description": "Recherche d'idées par mot-clé dans le titre ou contenu. Retourne les idées avec leur ID, projet associé, titre, catégorie et statut.",
+        "workflowId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "={{ $workflow.id }}"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "operation": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('operation', ``, 'string') }}",
+            "query": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('query', ``, 'string') }}",
+            "idea_id": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('idea_id', ``, 'string') }}",
+            "title": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('title', ``, 'string') }}",
+            "content": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('content', ``, 'string') }}",
+            "category": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('category', ``, 'string') }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "operation",
+              "displayName": "operation",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "query",
+              "displayName": "query",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "idea_id",
+              "displayName": "idea_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "title",
+              "displayName": "title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "content",
+              "displayName": "content",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "category",
+              "displayName": "category",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.1,
+      "position": [
+        -640,
+        480
+      ],
+      "id": "014c18a2ec1a47eb8143e497",
+      "name": "search_ideas"
+    },
+    {
+      "parameters": {
+        "name": "get_idea_by_id",
+        "description": "Récupère les détails complets d'une idée spécifique par son ID (format IDEA-XXX).",
+        "workflowId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "={{ $workflow.id }}"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "operation": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('operation', ``, 'string') }}",
+            "query": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('query', ``, 'string') }}",
+            "idea_id": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('idea_id', ``, 'string') }}",
+            "title": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('title', ``, 'string') }}",
+            "content": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('content', ``, 'string') }}",
+            "category": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('category', ``, 'string') }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "operation",
+              "displayName": "operation",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "query",
+              "displayName": "query",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "idea_id",
+              "displayName": "idea_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "title",
+              "displayName": "title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "content",
+              "displayName": "content",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "category",
+              "displayName": "category",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.1,
+      "position": [
+        -512,
+        560
+      ],
+      "id": "28da638625734628bad3b947",
+      "name": "get_idea_by_id"
+    },
+    {
+      "parameters": {
+        "name": "update_idea",
+        "description": "Modifie une idée existante. Paramètres : idea_id (string, format IDEA-XXX, REQUIS), title (string, optionnel), content (string, optionnel), category (string, optionnel: Nouvelle fonctionnalité|Amélioration|Bug fix|Refactoring|Documentation).",
+        "workflowId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "={{ $workflow.id }}"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "operation": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('operation', ``, 'string') }}",
+            "query": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('query', ``, 'string') }}",
+            "idea_id": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('idea_id', ``, 'string') }}",
+            "title": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('title', ``, 'string') }}",
+            "content": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('content', ``, 'string') }}",
+            "category": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('category', ``, 'string') }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "operation",
+              "displayName": "operation",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "query",
+              "displayName": "query",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "idea_id",
+              "displayName": "idea_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "title",
+              "displayName": "title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "content",
+              "displayName": "content",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "category",
+              "displayName": "category",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.1,
+      "position": [
+        -384,
+        640
+      ],
+      "id": "7e7d59931261479ba3c52135",
+      "name": "update_idea"
+    },
+    {
+      "parameters": {
+        "name": "delete_idea",
+        "description": "Supprime définitivement une idée par son ID (format IDEA-XXX). ⚠️ ATTENTION : Cette action est IRRÉVERSIBLE. Toujours confirmer avec l'utilisateur avant d'exécuter.",
+        "workflowId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "={{ $workflow.id }}"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "operation": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('operation', ``, 'string') }}",
+            "query": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('query', ``, 'string') }}",
+            "idea_id": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('idea_id', ``, 'string') }}",
+            "title": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('title', ``, 'string') }}",
+            "content": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('content', ``, 'string') }}",
+            "category": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('category', ``, 'string') }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "operation",
+              "displayName": "operation",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "query",
+              "displayName": "query",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "idea_id",
+              "displayName": "idea_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "title",
+              "displayName": "title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "content",
+              "displayName": "content",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "category",
+              "displayName": "category",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.1,
+      "position": [
+        -256,
+        720
+      ],
+      "id": "363886779c68477cbc61dfa3",
+      "name": "delete_idea"
+    },
+    {
+      "parameters": {
+        "resource": "databasePage",
+        "operation": "getAll",
+        "databaseId": {
+          "__rl": true,
+          "value": "29b2c1373ccc807d9347ce519cabcac4",
+          "mode": "id"
+        },
+        "returnAll": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 2.2,
+      "position": [
+        80,
+        1040
+      ],
+      "id": "1f8ac91cfc9e4f948ccf266d",
+      "name": "Notion - Search Ideas",
+      "credentials": {
+        "notionApi": {
+          "id": "cT2CMYYw9BByHYSg",
+          "name": "Notion account - nicolas@mhms.fr"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "databasePage",
+        "operation": "getAll",
+        "databaseId": {
+          "__rl": true,
+          "value": "29b2c1373ccc807d9347ce519cabcac4",
+          "mode": "id"
+        },
+        "returnAll": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 2.2,
+      "position": [
+        80,
+        1120
+      ],
+      "id": "dbe2f205955b47228c28b4bc",
+      "name": "Notion - Get Idea By ID",
+      "credentials": {
+        "notionApi": {
+          "id": "cT2CMYYw9BByHYSg",
+          "name": "Notion account - nicolas@mhms.fr"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "databasePage",
+        "operation": "getAll",
+        "databaseId": {
+          "__rl": true,
+          "value": "29b2c1373ccc807d9347ce519cabcac4",
+          "mode": "id"
+        },
+        "returnAll": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 2.2,
+      "position": [
+        80,
+        1200
+      ],
+      "id": "f491b8929ff34c96a2d34deb",
+      "name": "Notion - Update Idea",
+      "credentials": {
+        "notionApi": {
+          "id": "cT2CMYYw9BByHYSg",
+          "name": "Notion account - nicolas@mhms.fr"
+        }
+      },
+      "notes": "📝 Récupère d'abord l'idée existante pour pouvoir la mettre à jour"
+    },
+    {
+      "parameters": {
+        "resource": "page",
+        "operation": "archive",
+        "pageId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "={{ $json.notion_page_id }}"
+        }
+      },
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 2.2,
+      "position": [
+        80,
+        1280
+      ],
+      "id": "8964a2a3fcfc4a1e83ee88ed",
+      "name": "Notion - Delete Idea",
+      "credentials": {
+        "notionApi": {
+          "id": "cT2CMYYw9BByHYSg",
+          "name": "Notion account - nicolas@mhms.fr"
+        }
+      },
+      "notes": "⚠️ Suppression définitive de l'idée"
+    },
+    {
+      "parameters": {
+        "jsCode": "const query = ($input.first().json.query || '').toLowerCase();\nconst allIdeas = $('Notion - Search Ideas').all();\n\nconst matching = allIdeas.filter(item => {\n  const props = item.json;\n  const title = (props.property_titre_de_l_id_e || '').toLowerCase();\n  const content = (props.property_contenu || '').toLowerCase();\n  const id = (props.property_id || '').toLowerCase();\n\n  return title.includes(query) || content.includes(query) || id.includes(query);\n});\n\nconst results = matching.map(item => {\n  const props = item.json;\n  const id = props.property_id || 'N/A';\n  const title = props.property_titre_de_l_id_e || '';\n  const category = props.property_cat_gorie || 'N/A';\n  const status = props.property_trait_ || 'N/A';\n  const projectName = props.property_projet_li_ && props.property_projet_li_[0] ? props.property_projet_li_[0].name : 'N/A';\n  const url = props.url || '';\n\n  return `[${id}] ${title}\\nProjet: ${projectName} | Catégorie: ${category}\\nStatut: ${status}\\nURL: ${url}`;\n});\n\nconst response = results.length > 0\n  ? results.join('\\n\\n---\\n\\n')\n  : `Aucune idée trouvée pour \"${query}\".`;\n\nreturn [{ json: { response } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        288,
+        1040
+      ],
+      "id": "57dc52d451b54eaca288b2c6",
+      "name": "Format Search Ideas",
+      "notes": "🔍 Recherche et formate les idées par mots-clés"
+    },
+    {
+      "parameters": {
+        "jsCode": "const requestedId = ($input.first().json.idea_id || '').trim();\nconst allIdeas = $('Notion - Get Idea By ID').all();\n\nconst idea = allIdeas.find(item => {\n  const id = (item.json.property_id || '').trim();\n  return id === requestedId;\n});\n\nif (!idea) {\n  return [{ json: { response: `Idée \"${requestedId}\" non trouvée.` } }];\n}\n\nconst props = idea.json;\nconst id = props.property_id || 'N/A';\nconst title = props.property_titre_de_l_id_e || '';\nconst content = props.property_contenu || 'N/A';\nconst category = props.property_cat_gorie || 'N/A';\nconst status = props.property_trait_ || 'N/A';\nconst projectName = props.property_projet_li_ && props.property_projet_li_[0] ? props.property_projet_li_[0].name : 'N/A';\nconst url = props.url || '';\n\nconst response = `[${id}] ${title}\\n\\nContenu: ${content}\\n\\nProjet: ${projectName}\\nCatégorie: ${category}\\nStatut: ${status}\\n\\nURL: ${url}`;\n\nreturn [{ json: { response, notion_page_id: props.id } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        288,
+        1120
+      ],
+      "id": "564ff6dddfc8493a9e6ce75f",
+      "name": "Format Get Idea",
+      "notes": "📋 Récupère et formate les détails d'une idée spécifique"
+    },
+    {
+      "parameters": {
+        "jsCode": "const requestedId = ($input.first().json.idea_id || '').trim();\nconst allIdeas = $('Notion - Update Idea').all();\n\nconst idea = allIdeas.find(item => {\n  const id = (item.json.property_id || '').trim();\n  return id === requestedId;\n});\n\nif (!idea) {\n  throw new Error(`Idée \"${requestedId}\" non trouvée. Impossible de modifier.`);\n}\n\nconst notionPageId = idea.json.id;\nconst currentTitle = idea.json.property_titre_de_l_id_e || '';\nconst currentContent = idea.json.property_contenu || '';\nconst currentCategory = idea.json.property_cat_gorie || '';\n\n// Get update values from input\nconst newTitle = $input.first().json.title || currentTitle;\nconst newContent = $input.first().json.content || currentContent;\nconst newCategory = $input.first().json.category || currentCategory;\n\nreturn [{\n  json: {\n    id: requestedId,\n    notion_page_id: notionPageId,\n    title: newTitle,\n    content: newContent,\n    category: newCategory\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        288,
+        1200
+      ],
+      "id": "05e5a4b6ee5e445bba7f2bc4",
+      "name": "Prepare Update Idea",
+      "notes": "⚙️ Prépare les données pour la mise à jour (merge ancien + nouveau)"
+    },
+    {
+      "parameters": {
+        "jsCode": "const requestedId = ($input.first().json.idea_id || '').trim();\nconst allIdeas = $('Notion - Delete Idea').all();\n\nconst idea = allIdeas.find(item => {\n  const id = (item.json.property_id || '').trim();\n  return id === requestedId;\n});\n\nif (!idea) {\n  return [{ json: { response: `Idée \"${requestedId}\" non trouvée.` } }];\n}\n\nconst notionPageId = idea.json.id;\nconst title = idea.json.property_titre_de_l_id_e || '';\n\nreturn [{\n  json: {\n    id: requestedId,\n    notion_page_id: notionPageId,\n    title: title\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        288,
+        1280
+      ],
+      "id": "cde8c7be3dba4e1184c0098c",
+      "name": "Prepare Delete Idea",
+      "notes": "🗑️ Prépare la suppression de l'idée"
+    },
+    {
+      "parameters": {
+        "jsCode": "const ideaId = $input.first().json.id || 'N/A';\nconst title = $input.first().json.title || 'N/A';\n\nconst response = `✅ Idée supprimée\n\n⚠️ [${ideaId}] \"${title}\" a été supprimée définitivement de Notion.`;\n\nreturn [{ json: { response } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        496,
+        1280
+      ],
+      "id": "format_delete_response_8964a2a3fcfc",
+      "name": "Format Delete Response",
+      "notes": "✅ Formate la confirmation de suppression"
+    },
+    {
+      "parameters": {
+        "resource": "page",
+        "operation": "update",
+        "pageId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "={{ $json.notion_page_id }}"
+        },
+        "propertiesUi": {
+          "propertyValues": [
+            {
+              "key": "Titre de l'idée|title",
+              "title": "={{ $json.title }}"
+            },
+            {
+              "key": "Contenu|rich_text",
+              "textContent": "={{ $json.content }}"
+            },
+            {
+              "key": "Catégorie|select",
+              "selectValue": "={{ $json.category }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 2.2,
+      "position": [
+        496,
+        1200
+      ],
+      "id": "notion_update_page_new_id",
+      "name": "Notion - Update Idea Page",
+      "credentials": {
+        "notionApi": {
+          "id": "cT2CMYYw9BByHYSg",
+          "name": "Notion account - nicolas@mhms.fr"
+        }
+      },
+      "notes": "✏️ Met à jour la page Notion avec les nouvelles valeurs"
+    },
+    {
+      "parameters": {
+        "jsCode": "const ideaId = $(\"Prepare Update Idea\").first().json.id || \"N/A\";\nconst title = $(\"Prepare Update Idea\").first().json.title || \"N/A\";\n\nconst response = `✅ Idée modifiée\\n\\nID: ${ideaId}\\n\"${title}\" a été mise à jour dans Notion.`;\n\nreturn [{ json: { response } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        704,
+        1200
+      ],
+      "id": "format_update_response_new_id",
+      "name": "Format Update Response",
+      "notes": "✅ Formate la confirmation de modification"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "search_projects": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "get_project_by_id": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "list_categories": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "create_project": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "create_idea": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Workflow Trigger": {
+      "main": [
+        [
+          {
+            "node": "Switch Operation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch Operation": {
+      "main": [
+        [
+          {
+            "node": "Notion - Search Projects",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Notion - Get Project By ID",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "List Categories",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Generate Project ID",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Generate Idea ID",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Notion - Search Ideas",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Notion - Get Idea By ID",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Notion - Update Idea",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Notion - Delete Idea",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Notion - Search Projects": {
+      "main": [
+        [
+          {
+            "node": "Format Search Projects",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Notion - Get Project By ID": {
+      "main": [
+        [
+          {
+            "node": "Format Get Project By ID",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Project ID": {
+      "main": [
+        [
+          {
+            "node": "Notion - Create Project",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Notion - Create Project": {
+      "main": [
+        [
+          {
+            "node": "Format Create Project Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Idea ID": {
+      "main": [
+        [
+          {
+            "node": "Notion - Get Project For Idea",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Notion - Get Project For Idea": {
+      "main": [
+        [
+          {
+            "node": "Find Project Page ID",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Find Project Page ID": {
+      "main": [
+        [
+          {
+            "node": "Notion - Create Idea1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Notion - Create Idea1": {
+      "main": [
+        [
+          {
+            "node": "Format Create Idea Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "search_ideas": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "get_idea_by_id": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "update_idea": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "delete_idea": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Notion - Search Ideas": {
+      "main": [
+        [
+          {
+            "node": "Format Search Ideas",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Notion - Get Idea By ID": {
+      "main": [
+        [
+          {
+            "node": "Format Get Idea",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Notion - Update Idea": {
+      "main": [
+        [
+          {
+            "node": "Prepare Update Idea",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Notion - Delete Idea": {
+      "main": [
+        [
+          {
+            "node": "Format Delete Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Delete Idea": {
+      "main": [
+        [
+          {
+            "node": "Notion - Delete Idea",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Update Idea": {
+      "main": [
+        [
+          {
+            "node": "Notion - Update Idea Page",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Notion - Update Idea Page": {
+      "main": [
+        [
+          {
+            "node": "Format Update Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "4029f475-ab0f-44c3-8f66-c1b66665cb81",
+  "meta": {
+    "instanceId": "0d2863f3b0714240c15cb8a6ef23538e5a369ef4c91a5d3594a61ea64c62ba9c"
+  },
+  "id": "zh79Jo1FWhNrSZwn",
+  "tags": []
+}
