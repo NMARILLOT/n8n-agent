@@ -36,17 +36,31 @@ DEBUG=1 ./scripts/deploy.sh
 cp .env.example .env
 # Edit .env and add N8N_API_KEY from https://auto.mhms.fr/
 
-# 2. Make changes to workflow JSON files
+# 2. Setup MCP servers (Context7 for documentation access)
+./scripts/setup-mcp.sh
 
-# 3. Deploy with dry-run first
+# 3. Make changes to workflow JSON files
+
+# 4. Deploy with dry-run first
 ./scripts/deploy.sh --dry-run
 
-# 4. Deploy for real (auto-commits to Git before deploying)
+# 5. Deploy for real (auto-commits to Git before deploying)
 ./scripts/deploy.sh
 
-# 5. Push to GitHub after successful deployment
+# 6. Push to GitHub after successful deployment
 git push origin main
 ```
+
+### MCP Servers (Context7)
+
+**Context7 is configured** and provides real-time access to:
+- n8n documentation (docs.n8n.io)
+- Node.js documentation
+- Framework patterns and examples
+
+**How it works**: Automatically activated when you ask about n8n nodes, API, or technical documentation. No manual invocation needed.
+
+**Configuration**: `~/.config/claude/mcp_config.json` (created by setup-mcp.sh)
 
 ### Fetch Current Layout from n8n
 
@@ -75,6 +89,7 @@ n8n Agent/
 │   ├── deploy.sh                # Deployment with auto-commit
 │   ├── deploy.js                # Node.js deployment logic
 │   ├── list-workflows.js        # List workflows from API
+│   ├── setup-mcp.sh             # MCP servers installation
 │   ├── fetch-current-layout.py  # Retrieve layouts from n8n
 │   └── your-style-layout.py     # User's preferred layout style
 │
@@ -320,9 +335,12 @@ Get API key from: `https://auto.mhms.fr/settings/api`
 
 - **CLAUDE.md** (this file): Claude Code guidance
 - **WORKFLOW_GUIDELINES.md**: Visual layout best practices
+- **MCP_SETUP.md**: MCP servers configuration (Context7, etc.)
+- **GIT_SETUP.md**: Git & GitHub setup guide
 - **README.md**: Project overview
 - **DEPLOYMENT.md**: Complete deployment guide
 - **BUGS_KNOWLEDGE.md**: Bug tracking database
+- **n8n_instructions.md**: README template for workflow systems
 
 ---
 
@@ -330,16 +348,17 @@ Get API key from: `https://auto.mhms.fr/settings/api`
 
 As Claude Code working on this project:
 
-1. **Visual layout**: Always check user's style preferences first (`scripts/your-style-layout.py`)
-2. **No sticky notes**: Don't add sticky notes unless explicitly requested
-3. **Spacing**: Use ~200px horizontal, ~200px vertical
-4. **Flow direction**: Always left-to-right horizontal flow
-5. **Test with --dry-run** before actual deployment
-6. **Git commits automatically** before each deployment
-7. **Update documentation** when making changes
-8. **Document bugs immediately** in BUGS_KNOWLEDGE.md
-9. **Preserve workflow state** (pinData, staticData)
-10. **Push to GitHub** after successful deployments
+1. **MCP Context7**: Use for n8n documentation lookups (automatic activation)
+2. **Visual layout**: Always check user's style preferences first (`scripts/your-style-layout.py`)
+3. **No sticky notes**: Don't add sticky notes unless explicitly requested
+4. **Spacing**: Use ~200px horizontal, ~200px vertical
+5. **Flow direction**: Always left-to-right horizontal flow
+6. **Test with --dry-run** before actual deployment
+7. **Git commits automatically** before each deployment (no manual commits needed)
+8. **Update documentation** when making changes
+9. **Document bugs immediately** in BUGS_KNOWLEDGE.md
+10. **Preserve workflow state** (pinData, staticData)
+11. **Push to GitHub** after successful deployments (git push origin main)
 
 ---
 
