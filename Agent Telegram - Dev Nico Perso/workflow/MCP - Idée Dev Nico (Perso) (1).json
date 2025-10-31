@@ -1740,16 +1740,6 @@
               "defaultMatch": false,
               "display": true,
               "canBeUsedToMatch": true,
-              "type": "string",
-              "description": "ID de l'idée à archiver (format: IDEA-XXXXXXXX)"
-            },
-            {
-              "id": "__operation__",
-              "displayName": "__operation__",
-              "required": false,
-              "defaultMatch": false,
-              "display": false,
-              "canBeUsedToMatch": false,
               "type": "string"
             }
           ],
