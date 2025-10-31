@@ -1931,7 +1931,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const requestedId = ($input.first().json.idea_id || '').trim();\nconst allIdeas = $('Notion - Get Ideas For Delete').all();\n\nconst idea = allIdeas.find(item => {\n  const id = (item.json.property_id || '').trim();\n  return id === requestedId;\n});\n\nif (!idea) {\n  return [{ json: { response: `Idée \"${requestedId}\" non trouvée.` } }];\n}\n\nconst notionPageId = idea.json.id;\nconst title = idea.json.property_titre_de_l_id_e || '';\n\nreturn [{\n  json: {\n    id: requestedId,\n    notion_page_id: notionPageId,\n    title: title\n  }\n}];"
+        "jsCode": "const requestedId = ($input.first().json.idea_id || '').trim();\n\nconsole.log('[DELETE DEBUG] Requested ID:', requestedId);\nconsole.log('[DELETE DEBUG] Input:', JSON.stringify($input.first().json));\n\nconst allIdeas = $('Notion - Get Ideas For Delete').all();\nconsole.log('[DELETE DEBUG] Total ideas found:', allIdeas.length);\n\nconst idea = allIdeas.find(item => {\n  const id = (item.json.property_id || '').trim();\n  return id === requestedId;\n});\n\nif (!idea) {\n  const errorResponse = `❌ Idée \"${requestedId}\" non trouvée.`;\n  console.log('[DELETE DEBUG]', errorResponse);\n  return [{ json: { response: errorResponse, error: true } }];\n}\n\nconst notionPageId = idea.json.id;\nconst title = idea.json.property_titre_de_l_id_e || '';\n\nconsole.log('[DELETE DEBUG] Found idea:', {\n  id: requestedId,\n  notion_page_id: notionPageId,\n  title: title\n});\n\nreturn [{\n  json: {\n    id: requestedId,\n    notion_page_id: notionPageId,\n    title: title\n  }\n}];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -1945,7 +1945,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const ideaId = $input.first().json.id || 'N/A';\nconst title = $input.first().json.title || 'N/A';\n\nconst response = `✅ Idée supprimée\n\n⚠️ [${ideaId}] \"${title}\" a été supprimée définitivement de Notion.`;\n\nreturn [{ json: { response } }];"
+        "jsCode": "const input = $input.first().json;\n\nconsole.log('[DELETE DEBUG] Format Response input:', JSON.stringify(input));\n\n// Si erreur dans Prepare Delete Idea\nif (input.error) {\n  return [{ json: { response: input.response } }];\n}\n\nconst ideaId = input.id || 'N/A';\nconst title = input.title || 'N/A';\n\nconst response = `✅ Idée archivée\n\n⚠️ [${ideaId}] \"${title}\" a été archivée dans Notion.\n(Note: L'API Notion ne permet pas la suppression définitive)`;\n\nconsole.log('[DELETE DEBUG] Final response:', response);\n\nreturn [{ json: { response } }];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
