@@ -82,7 +82,45 @@ Documenter chaque bug dès qu'il est résolu
 
 ## Langchain & Agents
 
-<!-- Les bugs liés aux agents, LLM, memory, etc. -->
+### [BUG-002] Agent hallucine au lieu d'utiliser les tools MCP
+
+**Date**: 2025-10-31
+**Catégorie**: Langchain/Agent
+**Sévérité**: 🔴 Critique
+**Workflow(s) affecté(s)**: Agent Telegram - Dev Ideas
+
+**🔍 Symptômes**:
+- L'agent répond "✅ Suppression effectuée ! IDEA-XXX a été supprimée" SANS appeler `delete_idea()`
+- Il invente des IDs et des confirmations
+- L'utilisateur pense que l'action est faite alors qu'elle ne l'est pas
+- Aucun tool call n'apparaît dans les logs d'exécution
+
+**🎯 Cause racine**:
+**Hallucination LLM** : Claude (et tous les LLMs) peuvent répondre directement au lieu d'appeler les tools disponibles, même si le system prompt dit "TOUJOURS utiliser les outils".
+
+Causes techniques :
+1. Le system prompt n'est pas assez **explicite et strict**
+2. La température du LLM (0.7 par défaut) permet trop de créativité
+3. Claude peut "penser" qu'il aide l'utilisateur en répondant rapidement
+4. Pas de validation que les tools DOIVENT être appelés
+
+C'est un problème connu avec les agents LangChain.
+
+**✅ Solution**:
+1. **System prompt BEAUCOUP plus strict** avec menaces explicites
+2. **Checklist de vérification** avant chaque réponse
+3. **Baisser la température** à 0.2 (plus déterministe)
+4. **Instructions de fallback** si pas d'outil applicable
+5. **(OPTIONNEL)** Utiliser `tool_choice='required'` dans l'API Anthropic
+
+**🔄 Prévention**:
+- **Toujours tester** l'agent après modification du prompt
+- **Vérifier les logs d'exécution** pour confirmer que les tools sont appelés
+- **Être TRÈS explicite** dans les system prompts
+- **Température basse** (0.1-0.3) pour agents avec workflows stricts
+
+**🔗 Références**:
+- [Anthropic - Tool Choice](https://docs.anthropic.com/en/docs/build-with-claude/tool-use)
 
 ---
 
@@ -164,11 +202,16 @@ C'est une **limitation de l'API Notion**, pas du workflow n8n.
 
 ## 📊 Statistiques
 
-**Total bugs documentés**: 1
-**Bugs résolus**: 1
+**Total bugs documentés**: 2
+**Bugs résolus**: 2
 **Bugs récurrents**: 0
 
 **Dernière mise à jour**: 2025-10-31
+
+**Par sévérité**:
+- 🔴 Critique: 1 (Agent hallucination)
+- 🟡 Important: 1 (delete_idea API limitation)
+- 🟢 Mineur: 0
 
 **Top 3 bugs les plus fréquents**:
 1. _À venir_
