@@ -1122,8 +1122,8 @@
                 },
                 "conditions": [
                   {
-                    "leftValue": "={{ $json.operation }}",
-                    "rightValue": "delete_idea",
+                    "leftValue": "={{ $json.query.operation }}",
+                    "rightValue": "delete",
                     "operator": {
                       "type": "string",
                       "operation": "equals"
@@ -1931,7 +1931,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const requestedId = ($input.first().json.idea_id || '').trim();\n\nconsole.log('[DELETE DEBUG] Requested ID:', requestedId);\nconsole.log('[DELETE DEBUG] Input:', JSON.stringify($input.first().json));\n\nconst allIdeas = $('Notion - Get Ideas For Delete').all();\nconsole.log('[DELETE DEBUG] Total ideas found:', allIdeas.length);\n\nconst idea = allIdeas.find(item => {\n  const id = (item.json.property_id || '').trim();\n  return id === requestedId;\n});\n\nif (!idea) {\n  const errorResponse = `❌ Idée \"${requestedId}\" non trouvée.`;\n  console.log('[DELETE DEBUG]', errorResponse);\n  return [{ json: { response: errorResponse, error: true } }];\n}\n\nconst notionPageId = idea.json.id;\nconst title = idea.json.property_titre_de_l_id_e || '';\n\nconsole.log('[DELETE DEBUG] Found idea:', {\n  id: requestedId,\n  notion_page_id: notionPageId,\n  title: title\n});\n\nreturn [{\n  json: {\n    id: requestedId,\n    notion_page_id: notionPageId,\n    title: title\n  }\n}];"
+        "jsCode": "// Les données arrivent dans query object\nconst query = $input.first().json.query || $input.first().json;\nconst requestedId = (query.idea_id || '').trim();\n\nconsole.log('[DELETE DEBUG] Full input:', JSON.stringify($input.first().json));\nconsole.log('[DELETE DEBUG] Query object:', JSON.stringify(query));\nconsole.log('[DELETE DEBUG] Requested ID:', requestedId);\n\nif (!requestedId) {\n  return [{ json: { response: '❌ ID manquant. Utilise: delete_idea(idea_id=\"IDEA-XXX\")', error: true } }];\n}\n\nconst allIdeas = $('Notion - Get Ideas For Delete').all();\nconsole.log('[DELETE DEBUG] Total ideas found:', allIdeas.length);\n\nconst idea = allIdeas.find(item => {\n  const id = (item.json.property_id || '').trim();\n  return id === requestedId;\n});\n\nif (!idea) {\n  const errorResponse = `❌ Idée \"${requestedId}\" non trouvée dans la database.`;\n  console.log('[DELETE DEBUG]', errorResponse);\n  return [{ json: { response: errorResponse, error: true } }];\n}\n\nconst notionPageId = idea.json.id;\nconst title = idea.json.property_titre_de_l_id_e || '';\n\nconsole.log('[DELETE DEBUG] Found idea:', {\n  id: requestedId,\n  notion_page_id: notionPageId,\n  title: title\n});\n\nreturn [{\n  json: {\n    id: requestedId,\n    notion_page_id: notionPageId,\n    title: title\n  }\n}];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
