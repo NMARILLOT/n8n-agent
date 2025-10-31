@@ -8,8 +8,10 @@ Dépôt centralisé pour les workflows n8n organisés par système avec déploie
 n8n Agent/
 ├── README.md                          # Ce fichier
 ├── DEPLOYMENT.md                      # Guide de déploiement
-├── claude.md                          # Instructions pour Claude (développeur IA)
-├── BUGS_KNOWLEDGE.md                  # 🐛 Base de connaissances bugs (NOUVEAU)
+├── GIT_SETUP.md                       # 📦 Guide Git & GitHub (NOUVEAU)
+├── CLAUDE.md                          # Instructions Claude Code
+├── n8n_instructions.md                # Instructions n8n developer
+├── BUGS_KNOWLEDGE.md                  # 🐛 Base de connaissances bugs
 ├── .env.example                       # Template configuration
 ├── .env                               # Configuration (non versionné)
 ├── .gitignore                         # Fichiers ignorés par git
@@ -18,8 +20,10 @@ n8n Agent/
 │   │   └── bug.md                    # Commande /bug workflow automatisé
 │   └── settings.local.json
 ├── scripts/
-│   ├── deploy.sh                      # Script de déploiement (bash)
-│   └── deploy.js                      # Script de déploiement (node.js)
+│   ├── deploy.sh                      # Script de déploiement avec auto-commit
+│   ├── deploy.js                      # Script de déploiement (node.js)
+│   ├── list.sh                        # Liste des workflows
+│   └── list-workflows.js              # Liste des workflows (node.js)
 └── [Systèmes de workflows]/
     ├── Agent Telegram - Dev Nico Perso/
     │   ├── README.md                  # Documentation du système
@@ -159,6 +163,61 @@ Consultez [DEPLOYMENT.md](./DEPLOYMENT.md) pour:
 - Résolution de problèmes
 - Bonnes pratiques de sécurité
 
+---
+
+## 📦 Git & Versioning (NOUVEAU)
+
+### Versioning Automatique
+
+Chaque déploiement crée **automatiquement** un commit Git avec:
+- ✅ Timestamp exact du déploiement
+- ✅ Workflows déployés (tous ou système spécifique)
+- ✅ Mode (production ou dry-run)
+- ✅ Historique complet des versions
+
+### Workflow avec Git
+
+```bash
+# 1. Modifier un workflow
+nano "Mon Système/workflow/bot.json"
+
+# 2. Déployer (commit automatique AVANT le déploiement)
+./scripts/deploy.sh --dir "Mon Système"
+
+# Sortie:
+# 📦 Git Versioning...
+# ✅ Committed changes: a1b3cbc
+# 💡 Push to GitHub: git push origin main
+# 🚀 Starting deployment...
+
+# 3. Pousser vers GitHub pour sauvegarder
+git push origin main
+```
+
+### Voir l'Historique
+
+```bash
+# Voir tous les déploiements
+git log --oneline --grep="Pre-deployment"
+
+# Voir les changements d'un workflow
+git log --follow -- "Mon Système/workflow/bot.json"
+
+# Récupérer une ancienne version si besoin
+git checkout COMMIT_HASH -- "Mon Système/workflow/bot.json"
+```
+
+### Configuration GitHub
+
+Consultez [GIT_SETUP.md](./GIT_SETUP.md) pour:
+- Créer et connecter le dépôt GitHub
+- Comprendre le système de versioning automatique
+- Naviguer dans l'historique des déploiements
+- Revenir en arrière si nécessaire
+- Bonnes pratiques Git
+
+---
+
 ## 📚 Systèmes disponibles
 
 ### 1. Agent Telegram - Dev Nico Perso
@@ -251,8 +310,10 @@ Ce projet utilise Claude Code avec le **SuperClaude Framework** complet. Le fich
 
 - [README.md](./README.md) - Ce fichier (vue d'ensemble)
 - [DEPLOYMENT.md](./DEPLOYMENT.md) - Guide de déploiement complet
+- [GIT_SETUP.md](./GIT_SETUP.md) - 📦 Configuration Git & GitHub (NOUVEAU)
 - [CLAUDE.md](./CLAUDE.md) - Instructions pour Claude Code avec SuperClaude
-- [BUGS_KNOWLEDGE.md](./BUGS_KNOWLEDGE.md) - Base de connaissances bugs (NOUVEAU)
+- [n8n_instructions.md](./n8n_instructions.md) - Instructions développeur n8n (français)
+- [BUGS_KNOWLEDGE.md](./BUGS_KNOWLEDGE.md) - Base de connaissances bugs
 - [.claude/commands/bug.md](./.claude/commands/bug.md) - Workflow automatisé `/bug`
 - [Systèmes individuels](.) - README.md dans chaque dossier de système
 
@@ -269,6 +330,15 @@ Consultez la section [Résolution de problèmes](./DEPLOYMENT.md#résolution-de-
 - [n8n API Reference](https://docs.n8n.io/api/)
 
 ## 📝 Changelog
+
+### 2025-10-31 v2.1 - Git & Versioning Automatique
+
+- 📦 **NOUVEAU**: Versioning Git automatique avant chaque déploiement
+- 📖 **NOUVEAU**: Guide complet Git & GitHub (GIT_SETUP.md)
+- ✅ **NOUVEAU**: Auto-commit avec timestamp et détails de déploiement
+- 🔄 **NOUVEAU**: Historique complet des versions de workflows
+- 🎯 **AMÉLIORATION**: Script deploy.sh avec système de versioning intégré
+- 📚 **AMÉLIORATION**: Documentation mise à jour avec workflow Git
 
 ### 2025-10-31 v2.0 - Système de Gestion des Bugs
 
@@ -288,12 +358,14 @@ Consultez la section [Résolution de problèmes](./DEPLOYMENT.md#résolution-de-
 
 ## 🚀 Roadmap
 
+- [x] Versioning Git automatique des workflows ✅
+- [x] Historique complet des déploiements ✅
 - [ ] CI/CD avec GitHub Actions pour déploiement auto sur push
 - [ ] Validation des workflows avant déploiement
 - [ ] Backup automatique avant chaque déploiement
 - [ ] Dashboard de monitoring des workflows déployés
 - [ ] Tests automatisés des workflows
-- [ ] Versionning sémantique des workflows
+- [ ] Tags sémantiques pour versions majeures
 
 ## 📄 License
 
