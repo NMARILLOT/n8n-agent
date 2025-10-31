@@ -1741,6 +1741,16 @@
               "display": true,
               "canBeUsedToMatch": true,
               "type": "string"
+            },
+            {
+              "id": "__operation__",
+              "displayName": "__operation__",
+              "required": false,
+              "defaultMatch": false,
+              "display": false,
+              "canBeUsedToMatch": false,
+              "type": "string",
+              "description": "Internal routing parameter (auto-filled)"
             }
           ],
           "attemptToConvertTypes": false,
