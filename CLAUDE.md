@@ -55,9 +55,21 @@ cp .env.example .env
 # 4. Deploy with dry-run first
 ./scripts/deploy.sh --dry-run
 
-# 5. Deploy for real
+# 5. Deploy for real (auto-commits to Git before deploying)
 ./scripts/deploy.sh
+
+# 6. Push to GitHub (after successful deployment)
+git push origin main
 ```
+
+### Git Versioning
+
+Every deployment **automatically creates a Git commit** before deploying:
+- Timestamp of deployment
+- Target workflows (all or specific system)
+- Mode (production or dry-run)
+
+This ensures complete version history and rollback capability.
 
 ---
 
@@ -180,11 +192,26 @@ if (existingWorkflow) {
 3. **Update documentation**:
    - Update system README.md if changes affect architecture
 
-4. **Deploy**:
+4. **Deploy with automatic Git commit**:
    ```bash
    ./scripts/deploy.sh --dry-run --dir "System Name"
-   ./scripts/deploy.sh --dir "System Name"
+   ./scripts/deploy.sh --dir "System Name"  # Auto-commits before deploying
+   git push origin main                      # Push to GitHub
    ```
+
+### Git History and Rollback
+
+```bash
+# View deployment history
+git log --oneline --grep="Pre-deployment"
+
+# View changes to a specific workflow
+git log --follow -- "System Name/workflow/workflow.json"
+
+# Rollback to previous version
+git checkout COMMIT_HASH -- "System Name/workflow/workflow.json"
+./scripts/deploy.sh --dir "System Name"  # Redeploy old version
+```
 
 ### Bug Tracking Workflow
 
@@ -289,9 +316,10 @@ Get API key from: `https://auto.mhms.fr/settings/api`
 ## 📚 Documentation Structure
 
 - **CLAUDE.md** (this file): Claude Code guidance
-- **n8n_instructions.md**: Detailed French n8n developer guide
+- **n8n_instructions.md**: README.md template for workflow systems (French)
 - **README.md**: Project overview and quick start
 - **DEPLOYMENT.md**: Complete deployment documentation
+- **GIT_SETUP.md**: Git & GitHub setup and versioning guide
 - **BUGS_KNOWLEDGE.md**: Bug tracking database
 - **claudedocs/**: Architecture analysis and roadmaps
 
@@ -303,11 +331,13 @@ As Claude Code working on this project:
 
 1. **Always check documentation first** (BUGS_KNOWLEDGE.md, READMEs)
 2. **Test with --dry-run** before actual deployment
-3. **Update documentation** when making changes
-4. **Follow existing patterns** in workflow structure
-5. **Document bugs immediately** when resolved
-6. **Use SuperClaude commands** for complex tasks
-7. **Preserve workflow state** (pinData, staticData) during updates
+3. **Git commits automatically** before each deployment (no manual commits needed)
+4. **Update documentation** when making changes (especially system README.md)
+5. **Follow n8n_instructions.md** template for new workflow system READMEs
+6. **Document bugs immediately** in BUGS_KNOWLEDGE.md when resolved
+7. **Use SuperClaude commands** for complex tasks (/sc:implement, /bug, etc.)
+8. **Preserve workflow state** (pinData, staticData) during updates
+9. **Push to GitHub** after successful deployments (git push origin main)
 
 ---
 
