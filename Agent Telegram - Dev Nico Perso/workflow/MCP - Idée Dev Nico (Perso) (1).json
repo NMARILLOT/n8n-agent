@@ -9,8 +9,8 @@
       "type": "@n8n/n8n-nodes-langchain.mcpTrigger",
       "typeVersion": 1,
       "position": [
-        360,
-        300
+        -200,
+        -200
       ],
       "id": "6b1b5a12-894d-47ef-ae4e-de790b03be0d",
       "name": "MCP Server Trigger",
@@ -186,8 +186,8 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2.1,
       "position": [
-        800,
-        200
+        600,
+        -300
       ],
       "id": "350a4687-ba00-45e8-8a23-e00f8352b9d2",
       "name": "search_projects"
@@ -356,8 +356,8 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2.1,
       "position": [
-        960,
-        200
+        1000,
+        -300
       ],
       "id": "4ce5aff1-c6bc-4b02-8817-2c24aa11865e",
       "name": "get_project_by_id"
@@ -527,8 +527,8 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2.1,
       "position": [
-        1120,
-        200
+        1400,
+        -300
       ],
       "id": "0ff937df-cb26-4dde-bf0c-e79637ca8db4",
       "name": "list_categories"
@@ -691,8 +691,8 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2.1,
       "position": [
-        800,
-        360
+        600,
+        0
       ],
       "id": "e1e837e1-fd51-47f9-b778-c01668286fb8",
       "name": "create_project"
@@ -858,8 +858,8 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2.1,
       "position": [
-        960,
-        360
+        1000,
+        0
       ],
       "id": "e2970b3b-a9b7-472e-a10b-7fe507429efb",
       "name": "create_idea"
@@ -913,8 +913,8 @@
       "type": "n8n-nodes-base.executeWorkflowTrigger",
       "typeVersion": 1.1,
       "position": [
-        800,
-        800
+        600,
+        600
       ],
       "id": "ae4d132b-f896-4408-8aca-e072b614a3c7",
       "name": "Execute Workflow Trigger"
@@ -1138,7 +1138,7 @@
       "typeVersion": 3.2,
       "position": [
         1000,
-        800
+        600
       ],
       "id": "14c022c3-9f32-42f5-8bfe-bd7fb91cc382",
       "name": "Switch Operation"
@@ -1158,8 +1158,8 @@
       "type": "n8n-nodes-base.notion",
       "typeVersion": 2.2,
       "position": [
-        800,
-        960
+        600,
+        900
       ],
       "id": "e04086e0-1de7-46e1-909c-093667b32570",
       "name": "Notion - Search Projects",
@@ -1177,8 +1177,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        800,
-        1120
+        600,
+        1200
       ],
       "id": "24b80f48-8a33-4b2b-a67a-51970cb62109",
       "name": "Format Search Projects"
@@ -1199,7 +1199,7 @@
       "typeVersion": 2.2,
       "position": [
         1000,
-        960
+        900
       ],
       "id": "0a32ab48-d45d-4230-a94c-edf93bd499fd",
       "name": "Notion - Get Project By ID",
@@ -1218,7 +1218,7 @@
       "typeVersion": 2,
       "position": [
         1000,
-        1120
+        1200
       ],
       "id": "ed9c1278-8900-4b1d-af36-d1a9499c5bf5",
       "name": "Format Get Project By ID"
@@ -1230,8 +1230,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1200,
-        960
+        1400,
+        900
       ],
       "id": "115c0189-7191-445f-8fec-dd611d782db2",
       "name": "List Categories"
@@ -1243,8 +1243,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        800,
-        1280
+        600,
+        1500
       ],
       "id": "697f09a0-0afb-4c84-afe9-377557a8e7be",
       "name": "Generate Project ID"
@@ -1299,7 +1299,7 @@
       "typeVersion": 2.2,
       "position": [
         1000,
-        1280
+        1500
       ],
       "id": "aa4716fe-1335-491a-9f29-ed41cc749649",
       "name": "Notion - Create Project",
@@ -1317,8 +1317,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1200,
-        1280
+        1400,
+        1500
       ],
       "id": "e216befc-4dcc-4747-a30d-93369892769e",
       "name": "Format Create Project Response"
@@ -1330,8 +1330,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1400,
-        800
+        1800,
+        600
       ],
       "id": "67c0b4d3-e6ce-4e8c-8ab3-8dace5aeff52",
       "name": "Generate Idea ID"
@@ -1351,8 +1351,8 @@
       "type": "n8n-nodes-base.notion",
       "typeVersion": 2.2,
       "position": [
-        1400,
-        960
+        1800,
+        900
       ],
       "id": "b7804ed5-ae4c-43dd-9038-67bb0e684e18",
       "name": "Notion - Get Project For Idea",
@@ -1370,8 +1370,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1400,
-        1120
+        1800,
+        1200
       ],
       "id": "6a3d0fba-526f-4147-85e7-f6338f1ac907",
       "name": "Find Project Page ID"
@@ -1383,8 +1383,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1600,
-        1280
+        2200,
+        1500
       ],
       "id": "96e7a7cf-cca2-4ec9-8e67-153f99e1d01b",
       "name": "Format Create Idea Response"
@@ -1432,8 +1432,8 @@
       "type": "n8n-nodes-base.notion",
       "typeVersion": 2.2,
       "position": [
-        1400,
-        1280
+        1800,
+        1500
       ],
       "id": "aa15ab1f-7370-4310-83ab-a5ab3ac10538",
       "name": "Notion - Create Idea1",
@@ -1527,8 +1527,8 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2.1,
       "position": [
-        1480,
-        200
+        2400,
+        -300
       ],
       "id": "014c18a2ec1a47eb8143e497",
       "name": "search_ideas"
@@ -1616,8 +1616,8 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2.1,
       "position": [
-        1640,
-        200
+        2800,
+        -300
       ],
       "id": "28da638625734628bad3b947",
       "name": "get_idea_by_id"
@@ -1705,8 +1705,8 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2.1,
       "position": [
-        1800,
-        200
+        3200,
+        -300
       ],
       "id": "7e7d59931261479ba3c52135",
       "name": "update_idea"
@@ -1794,8 +1794,8 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2.1,
       "position": [
-        1480,
-        360
+        2400,
+        0
       ],
       "id": "363886779c68477cbc61dfa3",
       "name": "delete_idea"
@@ -1815,8 +1815,8 @@
       "type": "n8n-nodes-base.notion",
       "typeVersion": 2.2,
       "position": [
-        1600,
-        800
+        2200,
+        600
       ],
       "id": "1f8ac91cfc9e4f948ccf266d",
       "name": "Notion - Search Ideas",
@@ -1842,8 +1842,8 @@
       "type": "n8n-nodes-base.notion",
       "typeVersion": 2.2,
       "position": [
-        1800,
-        800
+        2600,
+        600
       ],
       "id": "dbe2f205955b47228c28b4bc",
       "name": "Notion - Get Idea By ID",
@@ -1869,8 +1869,8 @@
       "type": "n8n-nodes-base.notion",
       "typeVersion": 2.2,
       "position": [
-        1600,
-        1120
+        2200,
+        1200
       ],
       "id": "f491b8929ff34c96a2d34deb",
       "name": "Notion - Update Idea",
@@ -1895,8 +1895,8 @@
       "type": "n8n-nodes-base.notion",
       "typeVersion": 2.2,
       "position": [
-        1800,
-        1120
+        2600,
+        1200
       ],
       "id": "8964a2a3fcfc4a1e83ee88ed",
       "name": "Notion - Delete Idea",
@@ -1915,8 +1915,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1600,
-        960
+        2200,
+        900
       ],
       "id": "57dc52d451b54eaca288b2c6",
       "name": "Format Search Ideas",
@@ -1929,8 +1929,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1800,
-        960
+        2600,
+        900
       ],
       "id": "564ff6dddfc8493a9e6ce75f",
       "name": "Format Get Idea",
@@ -1943,8 +1943,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1600,
-        1280
+        2200,
+        1500
       ],
       "id": "05e5a4b6ee5e445bba7f2bc4",
       "name": "Prepare Update Idea",
@@ -1957,8 +1957,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2000,
-        1120
+        3000,
+        1200
       ],
       "id": "cde8c7be3dba4e1184c0098c",
       "name": "Prepare Delete Idea",
@@ -1971,8 +1971,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2000,
-        1280
+        3000,
+        1500
       ],
       "id": "format_delete_response_8964a2a3fcfc",
       "name": "Format Delete Response",
@@ -2007,8 +2007,8 @@
       "type": "n8n-nodes-base.notion",
       "typeVersion": 2.2,
       "position": [
-        1800,
-        1280
+        2600,
+        1500
       ],
       "id": "notion_update_page_new_id",
       "name": "Notion - Update Idea Page",
@@ -2027,8 +2027,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2000,
-        1280
+        3000,
+        1500
       ],
       "id": "format_update_response_new_id",
       "name": "Format Update Response",
@@ -2036,15 +2036,15 @@
     },
     {
       "parameters": {
-        "content": "## 🚀 USAGE\n\nOpen the MCP Server Trigger node to obtain the SSE server URL.\n\nUse that URL to configure your AI Agent (Claude, ChatGPT, etc.) to interact with your Notion projects and ideas.\n\n**Available Tools:**\n• 5 Project Management Tools\n• 5 Idea Management Tools",
-        "height": 280,
-        "width": 400,
+        "content": "## 🚀 USAGE\n\n**Obtiens l'URL SSE du serveur MCP:**\nOuvre le node \"MCP Server Trigger\" pour obtenir l'URL du serveur.\n\n**Configure ton agent IA:**\nUtilise cette URL dans Claude, ChatGPT, ou autre agent IA.\n\n**9 outils disponibles:**\n• 4 outils Projets (search, get, create, list)\n• 5 outils Idées (create, search, get, update, delete)",
+        "height": 400,
+        "width": 500,
         "color": 6
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        240,
-        100
+        -800,
+        -400
       ],
       "id": "sticky_usage_instructions",
       "name": "Usage Instructions",
@@ -2052,47 +2052,47 @@
     },
     {
       "parameters": {
-        "content": "## 📦 PROJECT TOOLS\n\nManage your MHMS projects database:\n• Search projects by keywords\n• Get detailed project info\n• Create new projects\n• List available categories",
-        "height": 440,
-        "width": 600,
+        "content": "## 📦 PROJECT TOOLS\n\n**Gestion des projets MHMS:**\n\n✅ search_projects - Recherche par mots-clés\n✅ get_project_by_id - Détails d'un projet\n✅ create_project - Nouveau projet\n✅ list_categories - Liste des catégories",
+        "height": 600,
+        "width": 1400,
         "color": 4
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        720,
-        100
+        400,
+        -500
       ],
-      "id": "sticky_project_tools_section",
-      "name": "Project Tools Section",
+      "id": "sticky_project_tools",
+      "name": "Project Tools",
       "typeVersion": 1
     },
     {
       "parameters": {
-        "content": "## 💡 IDEA TOOLS\n\nManage ideas within projects:\n• Create new ideas\n• Search existing ideas\n• Update idea content\n• Delete ideas (irreversible!)\n• Get idea details",
-        "height": 560,
-        "width": 600,
+        "content": "## 💡 IDEA TOOLS\n\n**Gestion des idées dans les projets:**\n\n✅ create_idea - Nouvelle idée\n✅ search_ideas - Recherche d'idées\n✅ get_idea_by_id - Détails d'une idée\n✅ update_idea - Modifier une idée\n✅ delete_idea - Supprimer une idée (irréversible!)",
+        "height": 600,
+        "width": 1400,
         "color": 5
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        1400,
-        100
+        2200,
+        -500
       ],
-      "id": "sticky_idea_tools_section",
-      "name": "Idea Tools Section",
+      "id": "sticky_idea_tools",
+      "name": "Idea Tools",
       "typeVersion": 1
     },
     {
       "parameters": {
-        "content": "## ⚙️ INTERNAL PROCESSING\n\nBackend nodes handling operations.\nNot exposed as MCP tools.",
-        "height": 680,
-        "width": 1280,
+        "content": "## ⚙️ BACKEND PROCESSING\n\nTraitement interne - Non exposé comme outils MCP\n\nSwitch → Notion Operations → Format → Return",
+        "height": 1400,
+        "width": 3200,
         "color": 7
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        720,
-        700
+        400,
+        400
       ],
       "id": "sticky_internal_processing",
       "name": "Internal Processing",
