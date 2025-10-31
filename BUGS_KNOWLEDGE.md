@@ -100,7 +100,53 @@ Documenter chaque bug dès qu'il est résolu
 
 ## API & Intégrations
 
-<!-- Les bugs liés aux appels API externes, webhooks, etc. -->
+### [BUG-001] delete_idea prétend supprimer mais archive seulement
+
+**Date**: 2025-10-31
+**Catégorie**: API/Integration
+**Sévérité**: 🟡 Important
+**Workflow(s) affecté(s)**: MCP - Idée Dev Nico (Perso)
+
+**🔍 Symptômes**:
+- L'outil `delete_idea` retourne un message de succès "supprimée avec succès"
+- L'idée reste visible dans la database Notion
+- L'utilisateur pense que la suppression a échoué
+
+**🎯 Cause racine**:
+L'API Notion ne permet PAS la suppression définitive de pages. Seulement l'archivage.
+Le node Notion utilise l'opération `archive` qui:
+- Marque la page comme archivée
+- La cache de la vue par défaut
+- Mais ne la supprime PAS définitivement
+
+C'est une **limitation de l'API Notion**, pas du workflow n8n.
+
+**✅ Solution**:
+1. Corriger la description du tool `delete_idea` pour être honnête:
+   ```
+   "Archive une idée dans Notion (équivalent à suppression).
+   L'idée sera archivée et n'apparaîtra plus dans les recherches.
+   Note: L'API Notion ne permet pas la suppression définitive."
+   ```
+
+2. Mettre à jour les notes du node "Notion - Delete Idea":
+   ```
+   ⚠️ Archive l'idée dans Notion
+
+   IMPORTANT: L'API Notion ne permet pas la suppression définitive.
+   La page est archivée et n'apparaît plus dans les vues.
+   ```
+
+3. Corriger les messages de succès pour dire "archivée" au lieu de "supprimée"
+
+**🔄 Prévention**:
+- Toujours vérifier les limitations de l'API externe avant de promettre des fonctionnalités
+- Documenter clairement les limitations dans les descriptions des tools MCP
+- Être transparent avec l'utilisateur sur ce qui se passe réellement
+
+**🔗 Références**:
+- [Notion API - Archive page](https://developers.notion.com/reference/archive-a-page)
+- Note: Aucun endpoint "delete" n'existe dans l'API Notion
 
 ---
 
@@ -118,9 +164,11 @@ Documenter chaque bug dès qu'il est résolu
 
 ## 📊 Statistiques
 
-**Total bugs documentés**: 0
-**Bugs résolus**: 0
+**Total bugs documentés**: 1
+**Bugs résolus**: 1
 **Bugs récurrents**: 0
+
+**Dernière mise à jour**: 2025-10-31
 
 **Top 3 bugs les plus fréquents**:
 1. _À venir_
