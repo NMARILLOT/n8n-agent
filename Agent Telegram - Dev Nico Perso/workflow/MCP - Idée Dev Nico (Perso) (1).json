@@ -1889,34 +1889,6 @@
     },
     {
       "parameters": {
-        "resource": "databasePage",
-        "operation": "getAll",
-        "databaseId": {
-          "__rl": true,
-          "value": "29b2c1373ccc807d9347ce519cabcac4",
-          "mode": "id"
-        },
-        "returnAll": true,
-        "options": {}
-      },
-      "type": "n8n-nodes-base.notion",
-      "typeVersion": 2.2,
-      "position": [
-        336,
-        1248
-      ],
-      "id": "8964a2a3fcfc4a1e83ee88ed",
-      "name": "Notion - Get Ideas For Delete",
-      "credentials": {
-        "notionApi": {
-          "id": "cT2CMYYw9BByHYSg",
-          "name": "Notion account - nicolas@mhms.fr"
-        }
-      },
-      "notes": "🔍 Récupère toutes les idées pour trouver celle à supprimer"
-    },
-    {
-      "parameters": {
         "jsCode": "const query = ($input.first().json.query || '').toLowerCase();\nconst allIdeas = $('Notion - Search Ideas').all();\n\nconst matching = allIdeas.filter(item => {\n  const props = item.json;\n  const title = (props.property_titre_de_l_id_e || '').toLowerCase();\n  const content = (props.property_contenu || '').toLowerCase();\n  const id = (props.property_id || '').toLowerCase();\n\n  return title.includes(query) || content.includes(query) || id.includes(query);\n});\n\nconst results = matching.map(item => {\n  const props = item.json;\n  const id = props.property_id || 'N/A';\n  const title = props.property_titre_de_l_id_e || '';\n  const category = props.property_cat_gorie || 'N/A';\n  const status = props.property_trait_ || 'N/A';\n  const projectName = props.property_projet_li_ && props.property_projet_li_[0] ? props.property_projet_li_[0].name : 'N/A';\n  const url = props.url || '';\n\n  return `[${id}] ${title}\\nProjet: ${projectName} | Catégorie: ${category}\\nStatut: ${status}\\nURL: ${url}`;\n});\n\nconst response = results.length > 0\n  ? results.join('\\n\\n---\\n\\n')\n  : `Aucune idée trouvée pour \"${query}\".`;\n\nreturn [{ json: { response } }];"
       },
       "type": "n8n-nodes-base.code",
@@ -2043,6 +2015,34 @@
         }
       },
       "notes": "🗑️ Archive l'idée dans Notion (limitation API: pas de suppression définitive)"
+    },
+    {
+      "parameters": {
+        "resource": "databasePage",
+        "operation": "getAll",
+        "databaseId": {
+          "__rl": true,
+          "value": "29b2c1373ccc807d9347ce519cabcac4",
+          "mode": "id"
+        },
+        "returnAll": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 2.2,
+      "position": [
+        336,
+        1248
+      ],
+      "id": "d7752c10dea141d0a2488dc4",
+      "name": "Notion - Get Ideas For Delete",
+      "credentials": {
+        "notionApi": {
+          "id": "cT2CMYYw9BByHYSg",
+          "name": "Notion account - nicolas@mhms.fr"
+        }
+      },
+      "notes": "🔍 Récupère TOUTES les idées pour trouver celle à supprimer (database des IDÉES)"
     }
   ],
   "connections": {
