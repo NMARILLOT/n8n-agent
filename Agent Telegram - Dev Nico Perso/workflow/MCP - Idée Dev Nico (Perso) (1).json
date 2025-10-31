@@ -1994,6 +1994,34 @@
         }
       },
       "notes": "🔍 Récupère TOUTES les idées pour trouver celle à supprimer (database des IDÉES)"
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $input.first().json;\n\nconsole.log('==============================================');\nconsole.log('[ARCHIVE DEBUG] Input to Notion - Archive Idea:');\nconsole.log(JSON.stringify(input, null, 2));\nconsole.log('notion_page_id:', input.notion_page_id);\nconsole.log('Type:', typeof input.notion_page_id);\nconsole.log('==============================================');\n\n// Passer l'input tel quel\nreturn [$input.first()];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        636,
+        1248
+      ],
+      "id": "log_before_archive_debug",
+      "name": "Log Before Archive",
+      "notes": "🔍 Debug logging avant archivage Notion"
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $input.first();\n\nconsole.log('==============================================');\nconsole.log('[ARCHIVE DEBUG] Output from Notion - Archive Idea:');\nconsole.log(JSON.stringify(input, null, 2));\n\n// Vérifier si l'archivage a réussi\nif (input.json) {\n  console.log('Archive SUCCESS - Notion returned data');\n  console.log('Page archived:', input.json.archived || input.json.id);\n} else {\n  console.log('Archive FAILED - No json data returned');\n}\nconsole.log('==============================================');\n\n// Récupérer les données de Prepare Delete Idea\nconst prepareData = $('Prepare Delete Idea').first().json;\n\n// Passer les données originales pour Format Delete Response\nreturn [{\n  json: {\n    id: prepareData.id,\n    notion_page_id: prepareData.notion_page_id,\n    title: prepareData.title,\n    archive_success: !!input.json\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        836,
+        1248
+      ],
+      "id": "log_after_archive_debug",
+      "name": "Log After Archive",
+      "notes": "🔍 Debug logging après archivage Notion"
     }
   ],
   "connections": {
@@ -2299,7 +2327,7 @@
       "main": [
         [
           {
-            "node": "Notion - Archive Idea",
+            "node": "Log Before Archive",
             "type": "main",
             "index": 0
           }
@@ -2340,6 +2368,28 @@
       ]
     },
     "Notion - Archive Idea": {
+      "main": [
+        [
+          {
+            "node": "Log After Archive",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Log Before Archive": {
+      "main": [
+        [
+          {
+            "node": "Notion - Archive Idea",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Log After Archive": {
       "main": [
         [
           {
