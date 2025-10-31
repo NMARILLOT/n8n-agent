@@ -9,8 +9,8 @@
       "type": "@n8n/n8n-nodes-langchain.mcpTrigger",
       "typeVersion": 1,
       "position": [
-        -625,
-        300
+        -600,
+        -800
       ],
       "id": "6b1b5a12-894d-47ef-ae4e-de790b03be0d",
       "name": "MCP Server Trigger",
@@ -186,8 +186,8 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2.1,
       "position": [
-        -225,
-        -800
+        -600,
+        -400
       ],
       "id": "350a4687-ba00-45e8-8a23-e00f8352b9d2",
       "name": "search_projects"
@@ -356,8 +356,8 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2.1,
       "position": [
-        -225,
-        -600
+        -600,
+        -200
       ],
       "id": "4ce5aff1-c6bc-4b02-8817-2c24aa11865e",
       "name": "get_project_by_id"
@@ -527,8 +527,8 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2.1,
       "position": [
-        -225,
-        -400
+        -600,
+        0
       ],
       "id": "0ff937df-cb26-4dde-bf0c-e79637ca8db4",
       "name": "list_categories"
@@ -691,8 +691,8 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2.1,
       "position": [
-        -225,
-        -200
+        -600,
+        200
       ],
       "id": "e1e837e1-fd51-47f9-b778-c01668286fb8",
       "name": "create_project"
@@ -858,8 +858,8 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2.1,
       "position": [
-        -225,
-        0
+        -600,
+        400
       ],
       "id": "e2970b3b-a9b7-472e-a10b-7fe507429efb",
       "name": "create_idea"
@@ -913,7 +913,7 @@
       "type": "n8n-nodes-base.executeWorkflowTrigger",
       "typeVersion": 1.1,
       "position": [
-        150,
+        -200,
         300
       ],
       "id": "ae4d132b-f896-4408-8aca-e072b614a3c7",
@@ -1137,7 +1137,7 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.2,
       "position": [
-        350,
+        0,
         300
       ],
       "id": "14c022c3-9f32-42f5-8bfe-bd7fb91cc382",
@@ -1158,7 +1158,7 @@
       "type": "n8n-nodes-base.notion",
       "typeVersion": 2.2,
       "position": [
-        600,
+        200,
         -1000
       ],
       "id": "e04086e0-1de7-46e1-909c-093667b32570",
@@ -1177,7 +1177,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        900,
+        400,
         -1000
       ],
       "id": "24b80f48-8a33-4b2b-a67a-51970cb62109",
@@ -1198,7 +1198,7 @@
       "type": "n8n-nodes-base.notion",
       "typeVersion": 2.2,
       "position": [
-        600,
+        200,
         -800
       ],
       "id": "0a32ab48-d45d-4230-a94c-edf93bd499fd",
@@ -1217,7 +1217,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        900,
+        400,
         -800
       ],
       "id": "ed9c1278-8900-4b1d-af36-d1a9499c5bf5",
@@ -1230,7 +1230,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        600,
+        200,
         -600
       ],
       "id": "115c0189-7191-445f-8fec-dd611d782db2",
@@ -1243,7 +1243,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        600,
+        200,
         0
       ],
       "id": "697f09a0-0afb-4c84-afe9-377557a8e7be",
@@ -1298,7 +1298,7 @@
       "type": "n8n-nodes-base.notion",
       "typeVersion": 2.2,
       "position": [
-        900,
+        400,
         0
       ],
       "id": "aa4716fe-1335-491a-9f29-ed41cc749649",
@@ -1317,7 +1317,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1200,
+        600,
         0
       ],
       "id": "e216befc-4dcc-4747-a30d-93369892769e",
@@ -1330,7 +1330,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        600,
+        200,
         200
       ],
       "id": "67c0b4d3-e6ce-4e8c-8ab3-8dace5aeff52",
@@ -1351,7 +1351,7 @@
       "type": "n8n-nodes-base.notion",
       "typeVersion": 2.2,
       "position": [
-        900,
+        400,
         200
       ],
       "id": "b7804ed5-ae4c-43dd-9038-67bb0e684e18",
@@ -1370,7 +1370,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1200,
+        600,
         200
       ],
       "id": "6a3d0fba-526f-4147-85e7-f6338f1ac907",
@@ -1383,7 +1383,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1800,
+        1000,
         200
       ],
       "id": "96e7a7cf-cca2-4ec9-8e67-153f99e1d01b",
@@ -1432,7 +1432,7 @@
       "type": "n8n-nodes-base.notion",
       "typeVersion": 2.2,
       "position": [
-        1500,
+        800,
         200
       ],
       "id": "aa15ab1f-7370-4310-83ab-a5ab3ac10538",
@@ -1527,8 +1527,8 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2.1,
       "position": [
-        -225,
-        200
+        -600,
+        600
       ],
       "id": "014c18a2ec1a47eb8143e497",
       "name": "search_ideas"
@@ -1616,8 +1616,8 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2.1,
       "position": [
-        -225,
-        400
+        -600,
+        800
       ],
       "id": "28da638625734628bad3b947",
       "name": "get_idea_by_id"
@@ -1705,8 +1705,8 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2.1,
       "position": [
-        -225,
-        600
+        -600,
+        1000
       ],
       "id": "7e7d59931261479ba3c52135",
       "name": "update_idea"
@@ -1794,8 +1794,8 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2.1,
       "position": [
-        -225,
-        800
+        -600,
+        1200
       ],
       "id": "363886779c68477cbc61dfa3",
       "name": "delete_idea"
@@ -1815,7 +1815,7 @@
       "type": "n8n-nodes-base.notion",
       "typeVersion": 2.2,
       "position": [
-        600,
+        200,
         -400
       ],
       "id": "1f8ac91cfc9e4f948ccf266d",
@@ -1842,7 +1842,7 @@
       "type": "n8n-nodes-base.notion",
       "typeVersion": 2.2,
       "position": [
-        600,
+        200,
         -200
       ],
       "id": "dbe2f205955b47228c28b4bc",
@@ -1869,7 +1869,7 @@
       "type": "n8n-nodes-base.notion",
       "typeVersion": 2.2,
       "position": [
-        600,
+        200,
         400
       ],
       "id": "f491b8929ff34c96a2d34deb",
@@ -1895,7 +1895,7 @@
       "type": "n8n-nodes-base.notion",
       "typeVersion": 2.2,
       "position": [
-        600,
+        200,
         600
       ],
       "id": "8964a2a3fcfc4a1e83ee88ed",
@@ -1915,7 +1915,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        900,
+        400,
         -400
       ],
       "id": "57dc52d451b54eaca288b2c6",
@@ -1929,7 +1929,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        900,
+        400,
         -200
       ],
       "id": "564ff6dddfc8493a9e6ce75f",
@@ -1943,7 +1943,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        900,
+        400,
         400
       ],
       "id": "05e5a4b6ee5e445bba7f2bc4",
@@ -1957,7 +1957,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        900,
+        400,
         600
       ],
       "id": "cde8c7be3dba4e1184c0098c",
@@ -1971,7 +1971,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1200,
+        600,
         600
       ],
       "id": "format_delete_response_8964a2a3fcfc",
@@ -2007,7 +2007,7 @@
       "type": "n8n-nodes-base.notion",
       "typeVersion": 2.2,
       "position": [
-        1200,
+        600,
         400
       ],
       "id": "notion_update_page_new_id",
@@ -2027,60 +2027,12 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1500,
+        800,
         400
       ],
       "id": "format_update_response_new_id",
       "name": "Format Update Response",
       "notes": "✅ Formate la confirmation de modification"
-    },
-    {
-      "parameters": {
-        "content": "## 🚀 MCP SERVER TRIGGER\n\nPoint d'entrée du workflow\nConfigure l'URL SSE ici",
-        "height": 1800,
-        "width": 350,
-        "color": 6
-      },
-      "type": "n8n-nodes-base.stickyNote",
-      "typeVersion": 1,
-      "position": [
-        -800,
-        -600
-      ],
-      "id": "sticky__TRIGGER",
-      "name": "🚀 TRIGGER"
-    },
-    {
-      "parameters": {
-        "content": "## 📦 TOOLS EXPOSÉS VIA MCP\n\n9 outils disponibles pour l'agent IA",
-        "height": 2400,
-        "width": 350,
-        "color": 4
-      },
-      "type": "n8n-nodes-base.stickyNote",
-      "typeVersion": 1,
-      "position": [
-        -400,
-        -900
-      ],
-      "id": "sticky__EXPOSED_TOOLS",
-      "name": "📦 EXPOSED TOOLS"
-    },
-    {
-      "parameters": {
-        "content": "## ⚙️ TRAITEMENT BACKEND\n\nOpérations Notion et formatage",
-        "height": 3000,
-        "width": 3200,
-        "color": 7
-      },
-      "type": "n8n-nodes-base.stickyNote",
-      "typeVersion": 1,
-      "position": [
-        0,
-        -1200
-      ],
-      "id": "sticky__BACKEND_PROCESSING",
-      "name": "⚙️ BACKEND PROCESSING"
     }
   ],
   "pinData": {},
