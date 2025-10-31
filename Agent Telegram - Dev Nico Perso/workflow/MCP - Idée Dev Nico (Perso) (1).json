@@ -1959,7 +1959,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const requestedId = ($input.first().json.idea_id || '').trim();\nconst allIdeas = $('Notion - Delete Idea').all();\n\nconst idea = allIdeas.find(item => {\n  const id = (item.json.property_id || '').trim();\n  return id === requestedId;\n});\n\nif (!idea) {\n  return [{ json: { response: `Idée \"${requestedId}\" non trouvée.` } }];\n}\n\nconst notionPageId = idea.json.id;\nconst title = idea.json.property_titre_de_l_id_e || '';\n\nreturn [{\n  json: {\n    id: requestedId,\n    notion_page_id: notionPageId,\n    title: title\n  }\n}];"
+        "jsCode": "const requestedId = ($input.first().json.idea_id || '').trim();\nconst allIdeas = $('Notion - Get Ideas For Delete').all();\n\nconst idea = allIdeas.find(item => {\n  const id = (item.json.property_id || '').trim();\n  return id === requestedId;\n});\n\nif (!idea) {\n  return [{ json: { response: `Idée \"${requestedId}\" non trouvée.` } }];\n}\n\nconst notionPageId = idea.json.id;\nconst title = idea.json.property_titre_de_l_id_e || '';\n\nreturn [{\n  json: {\n    id: requestedId,\n    notion_page_id: notionPageId,\n    title: title\n  }\n}];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
