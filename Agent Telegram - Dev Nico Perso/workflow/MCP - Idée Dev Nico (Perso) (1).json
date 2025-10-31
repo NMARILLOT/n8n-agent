@@ -1889,12 +1889,15 @@
     },
     {
       "parameters": {
-        "operation": "archive",
-        "pageId": {
+        "resource": "databasePage",
+        "operation": "getAll",
+        "databaseId": {
           "__rl": true,
-          "mode": "id",
-          "value": "={{ $json.notion_page_id }}"
-        }
+          "value": "29b2c1373ccc807d9347ce519cabcac4",
+          "mode": "id"
+        },
+        "returnAll": true,
+        "options": {}
       },
       "type": "n8n-nodes-base.notion",
       "typeVersion": 2.2,
@@ -1903,14 +1906,14 @@
         1248
       ],
       "id": "8964a2a3fcfc4a1e83ee88ed",
-      "name": "Notion - Delete Idea",
+      "name": "Notion - Get Ideas For Delete",
       "credentials": {
         "notionApi": {
           "id": "cT2CMYYw9BByHYSg",
           "name": "Notion account - nicolas@mhms.fr"
         }
       },
-      "notes": "⚠️ Archive l'idée dans Notion\n\nIMPORTANT: L'API Notion ne permet pas la suppression définitive.\nLa page est archivée et n'apparaît plus dans les vues, mais existe toujours.\nC'est une limitation de Notion, pas du workflow."
+      "notes": "🔍 Récupère toutes les idées pour trouver celle à supprimer"
     },
     {
       "parameters": {
@@ -2015,6 +2018,31 @@
       "id": "format_update_response_new_id",
       "name": "Format Update Response",
       "notes": "✅ Formate la confirmation de modification"
+    },
+    {
+      "parameters": {
+        "operation": "archive",
+        "pageId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "={{ $json.notion_page_id }}"
+        }
+      },
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 2.2,
+      "position": [
+        528,
+        1248
+      ],
+      "id": "archive_idea_new_node_id",
+      "name": "Notion - Archive Idea",
+      "credentials": {
+        "notionApi": {
+          "id": "cT2CMYYw9BByHYSg",
+          "name": "Notion account - nicolas@mhms.fr"
+        }
+      },
+      "notes": "🗑️ Archive l'idée dans Notion (limitation API: pas de suppression définitive)"
     }
   ],
   "connections": {
@@ -2144,7 +2172,7 @@
         ],
         [
           {
-            "node": "Notion - Delete Idea",
+            "node": "Notion - Get Ideas For Delete",
             "type": "main",
             "index": 0
           }
@@ -2316,22 +2344,11 @@
         ]
       ]
     },
-    "Notion - Delete Idea": {
-      "main": [
-        [
-          {
-            "node": "Format Delete Response",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Prepare Delete Idea": {
       "main": [
         [
           {
-            "node": "Notion - Delete Idea",
+            "node": "Notion - Archive Idea",
             "type": "main",
             "index": 0
           }
@@ -2354,6 +2371,28 @@
         [
           {
             "node": "Format Update Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Notion - Get Ideas For Delete": {
+      "main": [
+        [
+          {
+            "node": "Prepare Delete Idea",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Notion - Archive Idea": {
+      "main": [
+        [
+          {
+            "node": "Format Delete Response",
             "type": "main",
             "index": 0
           }
