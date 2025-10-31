@@ -310,7 +310,8 @@ Ce projet utilise Claude Code avec le **SuperClaude Framework** complet. Le fich
 
 - [README.md](./README.md) - Ce fichier (vue d'ensemble)
 - [DEPLOYMENT.md](./DEPLOYMENT.md) - Guide de déploiement complet
-- [GIT_SETUP.md](./GIT_SETUP.md) - 📦 Configuration Git & GitHub (NOUVEAU)
+- [GIT_SETUP.md](./GIT_SETUP.md) - 📦 Configuration Git & GitHub
+- [MCP_SETUP.md](./MCP_SETUP.md) - 🔌 Configuration MCP Servers (Context7, etc.)
 - [CLAUDE.md](./CLAUDE.md) - Instructions pour Claude Code avec SuperClaude
 - [n8n_instructions.md](./n8n_instructions.md) - Instructions développeur n8n (français)
 - [BUGS_KNOWLEDGE.md](./BUGS_KNOWLEDGE.md) - Base de connaissances bugs
@@ -330,6 +331,14 @@ Consultez la section [Résolution de problèmes](./DEPLOYMENT.md#résolution-de-
 - [n8n API Reference](https://docs.n8n.io/api/)
 
 ## 📝 Changelog
+
+### 2025-10-31 v2.2 - MCP Servers Integration
+
+- 🔌 **NOUVEAU**: Context7 MCP server pour accès documentation technique
+- 📖 **NOUVEAU**: Guide complet MCP (MCP_SETUP.md)
+- 🤖 **NOUVEAU**: Script d'installation automatique (scripts/setup-mcp.sh)
+- ✅ **NOUVEAU**: Configuration MCP dans ~/.config/claude/mcp_config.json
+- 📚 **AMÉLIORATION**: Accès direct à docs.n8n.io via Context7
 
 ### 2025-10-31 v2.1 - Git & Versioning Automatique
 

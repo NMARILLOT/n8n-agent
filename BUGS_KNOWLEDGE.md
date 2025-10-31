@@ -126,7 +126,146 @@ C'est un problème connu avec les agents LangChain.
 
 ## MCP Integration
 
-<!-- Les bugs liés à l'intégration MCP, serveurs SSE, tools, triggers -->
+### [BUG-003] Tool delete_idea retourne "workflow did not return a response"
+
+**Date**: 2025-10-31
+**Catégorie**: MCP/LangChain Tool Workflow
+**Sévérité**: 🔴 Critique
+**Workflow(s) affecté(s)**: MCP - Idée Dev Nico (Perso)
+
+**🔍 Symptômes**:
+- Erreur: `The workflow did not return a response`
+- Tool `delete_idea` échoue systématiquement
+- Agent LLM reçoit "Missing required parameter: operation"
+- LangChain schema validation error: "Received tool input did not match expected schema"
+
+**🎯 Cause racine**:
+**Paramètres tool mal configurés** : Le tool `delete_idea` avait 6 paramètres tous marqués comme `required: true`, alors que seul `idea_id` était nécessaire pour l'opération.
+
+Causes techniques détaillées :
+1. **Trop de paramètres requis** : `operation`, `query`, `idea_id`, `title`, `content`, `category` tous required
+2. **LLM ne sait pas quoi remplir** : Claude ne peut pas deviner des valeurs pour `operation`, `query`, `title`, etc.
+3. **Validation LangChain échoue** : Input ne correspond pas au schema attendu
+4. **Workflow ne s'exécute jamais** : Bloqué dès la validation d'input
+5. **Structure input incorrecte** : Data arrivait dans `{query: {operation, idea_id}}` au lieu de root level
+6. **Node cache problème** : Ancien node avec mauvaise config restait en cache malgré modifications JSON
+
+**✅ Solution**:
+
+**1. Simplifier le tool à UN SEUL paramètre visible** :
+```python
+params['workflowInputs'] = {
+    "mappingMode": "defineBelow",
+    "value": {
+        "idea_id": "={{ $fromAI('idea_id', '', 'string') }}",
+        "__operation__": "delete_idea"  # Caché, pour routing interne
+    },
+    "schema": [
+        {
+            "id": "idea_id",
+            "displayName": "idea_id",
+            "required": True,  # SEUL paramètre requis
+            "type": "string",
+            "description": "ID de l'idée à archiver (format: IDEA-XXXXXXXX)"
+        },
+        {
+            "id": "__operation__",
+            "displayName": "__operation__",
+            "required": False,
+            "display": False,  # Caché à l'utilisateur
+            "type": "string"
+        }
+    ]
+}
+```
+
+**2. Adapter le Switch pour lire `__operation__`** :
+```python
+for rule in rules:
+    if rule.get('outputKey') == 'delete_idea':
+        rule['conditions']['conditions'][0]['leftValue'] = "={{ $json.__operation__ }}"
+        rule['conditions']['conditions'][0]['rightValue'] = "delete_idea"
+```
+
+**3. Simplifier le code "Prepare Delete Idea"** :
+```javascript
+const input = $input.first().json;
+const requestedId = (input.idea_id || '').trim();
+
+console.log('[DELETE DEBUG] Input:', JSON.stringify(input));
+console.log('[DELETE DEBUG] Requested ID:', requestedId);
+
+if (!requestedId) {
+  return [{ json: {
+    response: '❌ Paramètre manquant.\n\nUtilisation: delete_idea(idea_id="IDEA-XXXXXXXX")',
+    error: true
+  } }];
+}
+
+const allIdeas = $('Notion - Get Ideas For Delete').all();
+const idea = allIdeas.find(item => {
+  const id = (item.json.property_id || '').trim();
+  return id === requestedId;
+});
+
+if (!idea) {
+  const errorResponse = `❌ Idée "${requestedId}" non trouvée.\n\nVérifie l'ID avec search_ideas().`;
+  return [{ json: { response: errorResponse, error: true } }];
+}
+
+return [{
+  json: {
+    id: requestedId,
+    notion_page_id: idea.json.id,
+    title: idea.json.property_titre_de_l_id_e || 'Sans titre'
+  }
+}];
+```
+
+**4. Forcer nouveau node avec UUID frais** :
+```python
+# Supprimer complètement l'ancien node
+workflow['nodes'] = [n for n in workflow['nodes'] if n['name'] != 'Notion - Get Ideas For Delete']
+
+# Créer nouveau node avec nouveau UUID
+new_node_id = str(uuid.uuid4()).replace('-', '')[:24]  # d7752c10dea141d0a2488dc4
+new_node = {
+    "parameters": search_ideas_node['parameters'].copy(),
+    "type": "n8n-nodes-base.notion",
+    "typeVersion": 2.2,
+    "id": new_node_id,
+    "name": "Notion - Get Ideas For Delete"
+}
+```
+
+**5. Déployer avec script Python** :
+```bash
+python3 scripts/fix-delete-tool-params.py
+./scripts/deploy.sh
+```
+
+**🔄 Prévention**:
+- **Minimalisme des paramètres** : Ne demander QUE ce qui est strictement nécessaire
+- **Regarder les tools qui fonctionnent** : S'inspirer de `create_idea`, `update_idea`, etc.
+- **Tester avec l'agent** : Vérifier que l'agent peut réellement appeler le tool
+- **Debug logging** : Ajouter `console.log('[DEBUG] Input:', JSON.stringify(input))` pour voir ce qui arrive
+- **Paramètres cachés pour routing** : Utiliser `display: false` pour paramètres internes
+- **Remplacer nodes problématiques** : Si cache persiste, supprimer et recréer avec nouveau UUID
+- **Éviter Python boolean errors** : Utiliser `True/False` pas `true/false` dans scripts Python
+
+**🔗 Références**:
+- [LangChain Tool Workflow n8n](https://docs.n8n.io/integrations/builtin/cluster-nodes/root-nodes/n8n-nodes-langchain.toolworkflow/)
+- [n8n Expression Resolution](https://docs.n8n.io/code/expressions/)
+- Script fix: `scripts/fix-delete-tool-params.py`
+- Script deploy: `scripts/deploy.sh`
+
+**💡 Leçons apprises**:
+1. **KISS principle** : Simplifier au maximum, ne pas sur-ingénierer
+2. **User feedback crucial** : "Regarde les tools qui fonctionnent" → clé de la solution
+3. **Debugging méthodique** : Input structure → Routing → Execution → Response
+4. **Ne JAMAIS utiliser boolean lowercase en Python** : `True` pas `true`
+
+---
 
 ---
 
@@ -202,21 +341,21 @@ C'est une **limitation de l'API Notion**, pas du workflow n8n.
 
 ## 📊 Statistiques
 
-**Total bugs documentés**: 2
-**Bugs résolus**: 2
+**Total bugs documentés**: 3
+**Bugs résolus**: 3
 **Bugs récurrents**: 0
 
 **Dernière mise à jour**: 2025-10-31
 
 **Par sévérité**:
-- 🔴 Critique: 1 (Agent hallucination)
+- 🔴 Critique: 2 (Agent hallucination, delete_idea workflow error)
 - 🟡 Important: 1 (delete_idea API limitation)
 - 🟢 Mineur: 0
 
 **Top 3 bugs les plus fréquents**:
-1. _À venir_
-2. _À venir_
-3. _À venir_
+1. Tool parameters mal configurés (BUG-003)
+2. Agent hallucination au lieu d'utiliser tools (BUG-002)
+3. API limitations non documentées (BUG-001)
 
 ---
 
