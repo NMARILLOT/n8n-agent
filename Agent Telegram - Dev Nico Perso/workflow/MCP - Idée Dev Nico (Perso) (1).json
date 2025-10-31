@@ -1122,8 +1122,8 @@
                 },
                 "conditions": [
                   {
-                    "leftValue": "={{ $json.query.operation }}",
-                    "rightValue": "delete",
+                    "leftValue": "={{ $json.__operation__ }}",
+                    "rightValue": "delete_idea",
                     "operator": {
                       "type": "string",
                       "operation": "equals"
@@ -1719,7 +1719,7 @@
     {
       "parameters": {
         "name": "delete_idea",
-        "description": "Archive une idée dans Notion (équivalent à suppression). L'idée sera archivée et n'apparaîtra plus dans les recherches. Note: L'API Notion ne permet pas la suppression définitive, seulement l'archivage.",
+        "description": "Archive une idée dans Notion par son ID. Format de l'ID: IDEA-XXXXXXXX. Note: L'API Notion archive les pages, elle ne les supprime pas définitivement.",
         "workflowId": {
           "__rl": true,
           "mode": "id",
@@ -1728,67 +1728,28 @@
         "workflowInputs": {
           "mappingMode": "defineBelow",
           "value": {
-            "operation": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('operation', ``, 'string') }}",
-            "query": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('query', ``, 'string') }}",
-            "idea_id": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('idea_id', ``, 'string') }}",
-            "title": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('title', ``, 'string') }}",
-            "content": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('content', ``, 'string') }}",
-            "category": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('category', ``, 'string') }}"
+            "idea_id": "={{ $fromAI('idea_id', '', 'string') }}",
+            "__operation__": "delete_idea"
           },
           "matchingColumns": [],
           "schema": [
             {
-              "id": "operation",
-              "displayName": "operation",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "canBeUsedToMatch": true,
-              "type": "string"
-            },
-            {
-              "id": "query",
-              "displayName": "query",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "canBeUsedToMatch": true,
-              "type": "string"
-            },
-            {
               "id": "idea_id",
               "displayName": "idea_id",
-              "required": false,
+              "required": true,
               "defaultMatch": false,
               "display": true,
               "canBeUsedToMatch": true,
-              "type": "string"
+              "type": "string",
+              "description": "ID de l'idée à archiver (format: IDEA-XXXXXXXX)"
             },
             {
-              "id": "title",
-              "displayName": "title",
+              "id": "__operation__",
+              "displayName": "__operation__",
               "required": false,
               "defaultMatch": false,
-              "display": true,
-              "canBeUsedToMatch": true,
-              "type": "string"
-            },
-            {
-              "id": "content",
-              "displayName": "content",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "canBeUsedToMatch": true,
-              "type": "string"
-            },
-            {
-              "id": "category",
-              "displayName": "category",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "canBeUsedToMatch": true,
+              "display": false,
+              "canBeUsedToMatch": false,
               "type": "string"
             }
           ],
@@ -1931,7 +1892,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Les données arrivent dans query object\nconst query = $input.first().json.query || $input.first().json;\nconst requestedId = (query.idea_id || '').trim();\n\nconsole.log('[DELETE DEBUG] Full input:', JSON.stringify($input.first().json));\nconsole.log('[DELETE DEBUG] Query object:', JSON.stringify(query));\nconsole.log('[DELETE DEBUG] Requested ID:', requestedId);\n\nif (!requestedId) {\n  return [{ json: { response: '❌ ID manquant. Utilise: delete_idea(idea_id=\"IDEA-XXX\")', error: true } }];\n}\n\nconst allIdeas = $('Notion - Get Ideas For Delete').all();\nconsole.log('[DELETE DEBUG] Total ideas found:', allIdeas.length);\n\nconst idea = allIdeas.find(item => {\n  const id = (item.json.property_id || '').trim();\n  return id === requestedId;\n});\n\nif (!idea) {\n  const errorResponse = `❌ Idée \"${requestedId}\" non trouvée dans la database.`;\n  console.log('[DELETE DEBUG]', errorResponse);\n  return [{ json: { response: errorResponse, error: true } }];\n}\n\nconst notionPageId = idea.json.id;\nconst title = idea.json.property_titre_de_l_id_e || '';\n\nconsole.log('[DELETE DEBUG] Found idea:', {\n  id: requestedId,\n  notion_page_id: notionPageId,\n  title: title\n});\n\nreturn [{\n  json: {\n    id: requestedId,\n    notion_page_id: notionPageId,\n    title: title\n  }\n}];"
+        "jsCode": "// Input simplifié: seulement idea_id\nconst input = $input.first().json;\nconst requestedId = (input.idea_id || '').trim();\n\nconsole.log('[DELETE DEBUG] Input:', JSON.stringify(input));\nconsole.log('[DELETE DEBUG] Requested ID:', requestedId);\n\nif (!requestedId) {\n  return [{ json: {\n    response: '❌ Paramètre manquant.\\n\\nUtilisation: delete_idea(idea_id=\"IDEA-XXXXXXXX\")',\n    error: true\n  } }];\n}\n\nconst allIdeas = $('Notion - Get Ideas For Delete').all();\nconsole.log('[DELETE DEBUG] Total ideas in DB:', allIdeas.length);\n\nconst idea = allIdeas.find(item => {\n  const id = (item.json.property_id || '').trim();\n  return id === requestedId;\n});\n\nif (!idea) {\n  const errorResponse = `❌ Idée \"${requestedId}\" non trouvée.\\n\\nVérifie l'ID avec search_ideas().`;\n  console.log('[DELETE DEBUG]', errorResponse);\n  return [{ json: { response: errorResponse, error: true } }];\n}\n\nconst notionPageId = idea.json.id;\nconst title = idea.json.property_titre_de_l_id_e || 'Sans titre';\n\nconsole.log('[DELETE DEBUG] Found:', { id: requestedId, page_id: notionPageId, title });\n\nreturn [{\n  json: {\n    id: requestedId,\n    notion_page_id: notionPageId,\n    title: title\n  }\n}];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
