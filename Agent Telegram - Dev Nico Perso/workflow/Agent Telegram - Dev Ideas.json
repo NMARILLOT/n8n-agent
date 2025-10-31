@@ -11,7 +11,7 @@
       "type": "n8n-nodes-base.telegramTrigger",
       "typeVersion": 1,
       "position": [
-        -600,
+        -800,
         100
       ],
       "id": "b40ed837-3076-4cb2-b1e7-4ca565c66a62",
@@ -81,7 +81,7 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.2,
       "position": [
-        -100,
+        -300,
         100
       ],
       "id": "533bbebd-cf9d-48d9-9558-3d4ee1eb9851",
@@ -97,8 +97,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        400,
-        -250
+        200,
+        -300
       ],
       "id": "4b3df01b-05bb-411b-98cd-5a6a4f991048",
       "name": "Get Audio File",
@@ -125,8 +125,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        700,
-        -250
+        600,
+        -300
       ],
       "id": "f7bccd68-0fa1-482b-b728-e0f9637472f9",
       "name": "Download Audio"
@@ -143,7 +143,7 @@
       "typeVersion": 1.8,
       "position": [
         1000,
-        -250
+        -300
       ],
       "id": "58a116b8-6ef1-4c6f-903c-04c7cb0bfaea",
       "name": "Transcribe Audio",
@@ -175,8 +175,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        400,
-        150
+        300,
+        300
       ],
       "id": "46f760ef-2567-46c1-b0c2-0bbe95a10ff4",
       "name": "Format Text Input"
@@ -202,8 +202,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        1300,
-        -250
+        1400,
+        -300
       ],
       "id": "4f9992ec-5c1d-4a00-929c-1f4687388f10",
       "name": "Format Audio Input"
@@ -218,7 +218,7 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3,
       "position": [
-        1600,
+        1900,
         100
       ],
       "id": "7fcae666-bef9-4340-b921-6f4f0c83a7af",
@@ -238,8 +238,8 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
       "typeVersion": 1.3,
       "position": [
-        2100,
-        250
+        2400,
+        350
       ],
       "id": "ecc5b5e1-74e2-4d2b-93a0-2ed2190660e1",
       "name": "Claude Sonnet 4.5",
@@ -260,8 +260,8 @@
       "type": "@n8n/n8n-nodes-langchain.mcpClientTool",
       "typeVersion": 1.2,
       "position": [
-        2300,
-        250
+        2700,
+        350
       ],
       "id": "da525435-acdd-4b66-852e-98d31d05f559",
       "name": "MCP Client - Projects",
@@ -283,7 +283,7 @@
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 1.7,
       "position": [
-        2300,
+        2700,
         100
       ],
       "id": "16550105-b424-45e9-a1fc-970102556aa8",
@@ -296,7 +296,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        3100,
+        3750,
         100
       ],
       "id": "d6147723-55f6-4961-8724-ebadc7c0ad66",
@@ -315,7 +315,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        3400,
+        4050,
         100
       ],
       "id": "f7d9e8f1-2616-48f0-84ea-19e6c8a85d8f",
@@ -337,8 +337,8 @@
       "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
       "typeVersion": 1.3,
       "position": [
-        2500,
-        250
+        3000,
+        350
       ],
       "id": "c862975b-99f2-4ec2-a512-a4a811fc2550",
       "name": "Simple Memory"
@@ -353,7 +353,7 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -800,
+        -1000,
         -200
       ],
       "id": "sticky__ENTRÉE",
@@ -369,7 +369,7 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -300,
+        -500,
         -200
       ],
       "id": "sticky__ROUTING",
@@ -378,15 +378,15 @@
     {
       "parameters": {
         "content": "## 🎤 TRAITEMENT VOCAL\n\nPipeline audio → texte",
-        "height": 300,
-        "width": 1600,
+        "height": 400,
+        "width": 2000,
         "color": 5
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        200,
-        -400
+        0,
+        -500
       ],
       "id": "sticky__BRANCHE_VOCALE",
       "name": "🎤 BRANCHE VOCALE"
@@ -394,15 +394,15 @@
     {
       "parameters": {
         "content": "## 📝 TRAITEMENT TEXTE\n\nFormat direct",
-        "height": 300,
-        "width": 400,
+        "height": 400,
+        "width": 600,
         "color": 4
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        200,
-        0
+        0,
+        100
       ],
       "id": "sticky__BRANCHE_TEXTE",
       "name": "📝 BRANCHE TEXTE"
@@ -410,15 +410,15 @@
     {
       "parameters": {
         "content": "## 🤖 INTELLIGENCE ARTIFICIELLE\n\nClaude + MCP + Memory",
-        "height": 600,
-        "width": 800,
+        "height": 800,
+        "width": 1000,
         "color": 3
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        1900,
-        -200
+        2200,
+        -300
       ],
       "id": "sticky__AGENT_IA",
       "name": "🤖 AGENT IA"
@@ -427,13 +427,13 @@
       "parameters": {
         "content": "## 📤 RÉPONSE\n\nEnvoi Telegram",
         "height": 600,
-        "width": 600,
+        "width": 700,
         "color": 7
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        2800,
+        3400,
         -200
       ],
       "id": "sticky__SORTIE",
