@@ -11,8 +11,8 @@
       "type": "n8n-nodes-base.telegramTrigger",
       "typeVersion": 1,
       "position": [
-        -100,
-        0
+        -200,
+        -200
       ],
       "id": "b40ed837-3076-4cb2-b1e7-4ca565c66a62",
       "name": "Telegram Trigger",
@@ -81,7 +81,7 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.2,
       "position": [
-        100,
+        -200,
         0
       ],
       "id": "533bbebd-cf9d-48d9-9558-3d4ee1eb9851",
@@ -97,8 +97,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        400,
-        -250
+        500,
+        -400
       ],
       "id": "4b3df01b-05bb-411b-98cd-5a6a4f991048",
       "name": "Get Audio File",
@@ -125,8 +125,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        600,
-        -250
+        800,
+        -400
       ],
       "id": "f7bccd68-0fa1-482b-b728-e0f9637472f9",
       "name": "Download Audio"
@@ -142,8 +142,8 @@
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.8,
       "position": [
-        800,
-        -250
+        1100,
+        -400
       ],
       "id": "58a116b8-6ef1-4c6f-903c-04c7cb0bfaea",
       "name": "Transcribe Audio",
@@ -175,8 +175,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        400,
-        150
+        600,
+        200
       ],
       "id": "46f760ef-2567-46c1-b0c2-0bbe95a10ff4",
       "name": "Format Text Input"
@@ -202,8 +202,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        1000,
-        -250
+        1400,
+        -400
       ],
       "id": "4f9992ec-5c1d-4a00-929c-1f4687388f10",
       "name": "Format Audio Input"
@@ -238,8 +238,8 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
       "typeVersion": 1.3,
       "position": [
-        1500,
-        200
+        2100,
+        100
       ],
       "id": "ecc5b5e1-74e2-4d2b-93a0-2ed2190660e1",
       "name": "Claude Sonnet 4.5",
@@ -260,8 +260,8 @@
       "type": "@n8n/n8n-nodes-langchain.mcpClientTool",
       "typeVersion": 1.2,
       "position": [
-        1700,
-        200
+        2400,
+        100
       ],
       "id": "da525435-acdd-4b66-852e-98d31d05f559",
       "name": "MCP Client - Projects",
@@ -283,8 +283,8 @@
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 1.7,
       "position": [
-        1500,
-        0
+        2200,
+        -200
       ],
       "id": "16550105-b424-45e9-a1fc-970102556aa8",
       "name": "Agent Dev Ideas"
@@ -296,8 +296,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2200,
-        0
+        3200,
+        -200
       ],
       "id": "d6147723-55f6-4961-8724-ebadc7c0ad66",
       "name": "Format Markdown for Telegram"
@@ -315,7 +315,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        2400,
+        3200,
         0
       ],
       "id": "f7d9e8f1-2616-48f0-84ea-19e6c8a85d8f",
@@ -337,90 +337,90 @@
       "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
       "typeVersion": 1.3,
       "position": [
-        1600,
-        200
+        2250,
+        100
       ],
       "id": "c862975b-99f2-4ec2-a512-a4a811fc2550",
       "name": "Simple Memory"
     },
     {
       "parameters": {
-        "content": "## 📨 ENTRÉE\n\nTelegram Trigger → Switch",
-        "height": 250,
-        "width": 400,
+        "content": "## 📨 INPUT\n\nTelegram messages entrants",
+        "height": 600,
+        "width": 600,
         "color": 6
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        -200,
-        -200
+        -400,
+        -400
       ],
-      "id": "sticky_1_Entrée",
-      "name": "1. Entrée",
+      "id": "sticky_INPUT",
+      "name": "INPUT",
       "typeVersion": 1
     },
     {
       "parameters": {
-        "content": "## 🎤 VOCAL\n\nAudio → Download → Transcribe → Format",
-        "height": 200,
-        "width": 1000,
+        "content": "## 🎤 VOCAL\n\nTraitement des messages vocaux",
+        "height": 400,
+        "width": 1400,
         "color": 5
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        300,
-        -350
+        400,
+        -600
       ],
-      "id": "sticky_2_Vocal",
-      "name": "2. Vocal",
+      "id": "sticky_VOCAL_PROCESSING",
+      "name": "VOCAL PROCESSING",
       "typeVersion": 1
     },
     {
       "parameters": {
-        "content": "## 📝 TEXTE\n\nFormat direct",
-        "height": 200,
-        "width": 400,
+        "content": "## 📝 TEXT\n\nTraitement des messages texte",
+        "height": 400,
+        "width": 600,
         "color": 4
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        300,
-        50
+        400,
+        0
       ],
-      "id": "sticky_3_Texte",
-      "name": "3. Texte",
+      "id": "sticky_TEXT_PROCESSING",
+      "name": "TEXT PROCESSING",
       "typeVersion": 1
     },
     {
       "parameters": {
-        "content": "## 🤖 AGENT IA\n\nClaude + MCP + Memory",
-        "height": 400,
-        "width": 600,
+        "content": "## 🤖 INTELLIGENCE ARTIFICIELLE\n\nClaude Sonnet 4.5\n+ MCP Client\n+ Memory",
+        "height": 800,
+        "width": 800,
         "color": 3
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        1400,
-        -200
+        2000,
+        -400
       ],
-      "id": "sticky_4_IA",
-      "name": "4. IA",
+      "id": "sticky_AI_AGENT",
+      "name": "AI AGENT",
       "typeVersion": 1
     },
     {
       "parameters": {
-        "content": "## 📤 SORTIE\n\nFormat → Send",
-        "height": 250,
-        "width": 400,
+        "content": "## 📤 OUTPUT\n\nRéponse Telegram",
+        "height": 600,
+        "width": 600,
         "color": 7
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        2100,
-        -200
+        3000,
+        -400
       ],
-      "id": "sticky_5_Sortie",
-      "name": "5. Sortie",
+      "id": "sticky_OUTPUT",
+      "name": "OUTPUT",
       "typeVersion": 1
     }
   ],

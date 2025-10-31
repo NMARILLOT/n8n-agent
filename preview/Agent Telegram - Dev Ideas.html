@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Agent Telegram - Dev Ideas.json - Preview</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #2a2a2a;
+            color: white;
+        }
+        .container {
+            position: relative;
+            width: 4200px;
+            height: 1200px;
+            background: #1a1a1a;
+            border: 2px solid #444;
+            margin: 20px auto;
+            overflow: auto;
+        }
+        .node {
+            position: absolute;
+            background: #3a3a3a;
+            border: 2px solid #666;
+            border-radius: 8px;
+            padding: 10px;
+            font-size: 12px;
+            color: white;
+            min-width: 180px;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+            z-index: 10;
+        }
+        .sticky {
+            position: absolute;
+            border-radius: 8px;
+            padding: 15px;
+            font-size: 13px;
+            opacity: 0.9;
+            z-index: 1;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        .sticky h2 {
+            margin: 0 0 10px 0;
+            font-size: 16px;
+        }
+        .sticky ul {
+            margin: 5px 0;
+            padding-left: 20px;
+        }
+        .mcp-tool {
+            background: #2e5090;
+            border-color: #4a6fa8;
+        }
+        .trigger {
+            background: #8e44ad;
+            border-color: #a569bd;
+        }
+        .switch {
+            background: #e67e22;
+            border-color: #f39c12;
+        }
+        .notion {
+            background: #2c3e50;
+            border-color: #34495e;
+        }
+        .code {
+            background: #27ae60;
+            border-color: #2ecc71;
+        }
+        .ai-agent {
+            background: #c0392b;
+            border-color: #e74c3c;
+        }
+        .header {
+            padding: 20px;
+            background: #1a1a1a;
+            border-bottom: 1px solid #444;
+        }
+        h1 {
+            margin: 0 0 10px 0;
+        }
+        .stats {
+            color: #aaa;
+            font-size: 14px;
+        }
+        .controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #2a2a2a;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #444;
+            z-index: 1000;
+        }
+        .controls button {
+            display: block;
+            width: 100%;
+            margin: 5px 0;
+            padding: 8px;
+            background: #3a3a3a;
+            color: white;
+            border: 1px solid #555;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .controls button:hover {
+            background: #4a4a4a;
+        }
+        .connection {
+            stroke: #666;
+            stroke-width: 2;
+            fill: none;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🎨 Agent Telegram - Dev Ideas</h1>
+        <div class="stats">
+            📦 14 nodes •
+            📌 5 sticky notes •
+            📐 Viewport: 4200x1200px
+        </div>
+    </div>
+
+    <div class="controls">
+        <h3>🎮 Controls</h3>
+        <button onclick="location.reload()">🔄 Refresh</button>
+        <button onclick="zoomIn()">🔍 Zoom In</button>
+        <button onclick="zoomOut()">🔍 Zoom Out</button>
+        <button onclick="resetZoom()">↺ Reset</button>
+    </div>
+
+    <div class="container" id="container">
+        <svg style="position: absolute; width: 100%; height: 100%; z-index: 0;">
+<line x1="400" y1="550" x2="400" y2="750" class="connection"/>
+<line x1="400" y1="750" x2="1100" y2="350" class="connection"/>
+<line x1="400" y1="750" x2="1200" y2="950" class="connection"/>
+<line x1="1100" y1="350" x2="1400" y2="350" class="connection"/>
+<line x1="1400" y1="350" x2="1700" y2="350" class="connection"/>
+<line x1="1700" y1="350" x2="2000" y2="350" class="connection"/>
+<line x1="1200" y1="950" x2="2800" y2="550" class="connection"/>
+<line x1="2000" y1="350" x2="2800" y2="550" class="connection"/>
+<line x1="2800" y1="550" x2="3800" y2="550" class="connection"/>
+<line x1="3800" y1="550" x2="3800" y2="750" class="connection"/>
+</svg>
+
+        <div class="sticky" style="left: 100px; top: 300px; width: 600px; height: 600px; background: #E6FFE6; color: #333;">
+            ## 📨 INPUT<br><br>Telegram messages entrants
+        </div>
+
+        <div class="sticky" style="left: 900px; top: 100px; width: 1400px; height: 400px; background: #F0E6FF; color: #333;">
+            ## 🎤 VOCAL<br><br>Traitement des messages vocaux
+        </div>
+
+        <div class="sticky" style="left: 900px; top: 700px; width: 600px; height: 400px; background: #E6F3FF; color: #333;">
+            ## 📝 TEXT<br><br>Traitement des messages texte
+        </div>
+
+        <div class="sticky" style="left: 2500px; top: 300px; width: 800px; height: 800px; background: #FFB6C1; color: #333;">
+            ## 🤖 INTELLIGENCE ARTIFICIELLE<br><br>Claude Sonnet 4.5<br>+ MCP Client<br>+ Memory
+        </div>
+
+        <div class="sticky" style="left: 3500px; top: 300px; width: 600px; height: 600px; background: #FFE6CC; color: #333;">
+            ## 📤 OUTPUT<br><br>Réponse Telegram
+        </div>
+
+        <div class="node trigger" style="left: 300px; top: 500px;">
+            Telegram Trigger
+        </div>
+
+        <div class="node switch" style="left: 300px; top: 700px;">
+            Switch: Type d'entrée
+        </div>
+
+        <div class="node mcp-tool" style="left: 1000px; top: 300px;">
+            Get Audio File
+        </div>
+
+        <div class="node" style="left: 1300px; top: 300px;">
+            Download Audio
+        </div>
+
+        <div class="node" style="left: 1600px; top: 300px;">
+            Transcribe Audio
+        </div>
+
+        <div class="node code" style="left: 1100px; top: 900px;">
+            Format Text Input
+        </div>
+
+        <div class="node code" style="left: 1900px; top: 300px;">
+            Format Audio Input
+        </div>
+
+        <div class="node" style="left: 1524px; top: 668px;">
+            Merge Inputs
+        </div>
+
+        <div class="node ai-agent" style="left: 2600px; top: 800px;">
+            Claude Sonnet 4.5
+        </div>
+
+        <div class="node" style="left: 2900px; top: 800px;">
+            MCP Client - Projects
+        </div>
+
+        <div class="node ai-agent" style="left: 2700px; top: 500px;">
+            Agent Dev Ideas
+        </div>
+
+        <div class="node code" style="left: 3700px; top: 500px;">
+            Format Markdown for Telegram
+        </div>
+
+        <div class="node" style="left: 3700px; top: 700px;">
+            Send Telegram Response
+        </div>
+
+        <div class="node" style="left: 2750px; top: 800px;">
+            Simple Memory
+        </div>
+
+    </div>
+
+    <script>
+        let scale = 1;
+        const container = document.getElementById('container');
+
+        function zoomIn() {
+            scale += 0.1;
+            container.style.transform = `scale(${scale})`;
+            container.style.transformOrigin = 'top left';
+        }
+
+        function zoomOut() {
+            scale = Math.max(0.5, scale - 0.1);
+            container.style.transform = `scale(${scale})`;
+            container.style.transformOrigin = 'top left';
+        }
+
+        function resetZoom() {
+            scale = 1;
+            container.style.transform = `scale(${scale})`;
+        }
+
+        // Drag to pan
+        let isDragging = false;
+        let startX, startY, scrollLeft, scrollTop;
+
+        container.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            startX = e.pageX - container.offsetLeft;
+            startY = e.pageY - container.offsetTop;
+            scrollLeft = container.scrollLeft;
+            scrollTop = container.scrollTop;
+            container.style.cursor = 'grabbing';
+        });
+
+        container.addEventListener('mouseup', () => {
+            isDragging = false;
+            container.style.cursor = 'grab';
+        });
+
+        container.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            e.preventDefault();
+            const x = e.pageX - container.offsetLeft;
+            const y = e.pageY - container.offsetTop;
+            const walkX = (x - startX) * 2;
+            const walkY = (y - startY) * 2;
+            container.scrollLeft = scrollLeft - walkX;
+            container.scrollTop = scrollTop - walkY;
+        });
+
+        container.style.cursor = 'grab';
+    </script>
+</body>
+</html>
