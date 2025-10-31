@@ -1,5 +1,10 @@
 {
+  "createdAt": "2025-10-29T09:29:34.295Z",
+  "updatedAt": "2025-10-31T20:30:53.638Z",
+  "id": "4lYuNSDjiyUjzHWL",
   "name": "Agent Telegram - Dev Ideas",
+  "active": true,
+  "isArchived": false,
   "nodes": [
     {
       "parameters": {
@@ -344,7 +349,6 @@
       "name": "Simple Memory"
     }
   ],
-  "pinData": {},
   "connections": {
     "Telegram Trigger": {
       "main": [
@@ -486,16 +490,75 @@
       ]
     }
   },
-  "active": true,
-  "settings": {
-    "executionOrder": "v1"
-  },
-  "versionId": "b2abf0a0-2a32-4cd9-ab8c-9fd59313026e",
+  "settings": {},
+  "staticData": null,
   "meta": {
-    "templateCredsSetupCompleted": true,
-    "instanceId": "0d2863f3b0714240c15cb8a6ef23538e5a369ef4c91a5d3594a61ea64c62ba9c"
+    "templateCredsSetupCompleted": true
   },
-  "id": "4lYuNSDjiyUjzHWL",
+  "pinData": {},
+  "versionId": "ec624993-cbbb-41e1-bcdf-21a7c8abd99e",
+  "triggerCount": 1,
+  "shared": [
+    {
+      "createdAt": "2025-10-29T09:29:34.299Z",
+      "updatedAt": "2025-10-29T09:29:34.299Z",
+      "role": "workflow:owner",
+      "workflowId": "4lYuNSDjiyUjzHWL",
+      "projectId": "sxcC7rL7azrL36jR",
+      "project": {
+        "createdAt": "2025-03-26T08:55:31.477Z",
+        "updatedAt": "2025-03-26T08:57:20.238Z",
+        "id": "sxcC7rL7azrL36jR",
+        "name": "Nicolas MARILLOT <nicolas@mhms.fr>",
+        "type": "personal",
+        "icon": null,
+        "description": null,
+        "projectRelations": [
+          {
+            "createdAt": "2025-03-26T08:55:31.477Z",
+            "updatedAt": "2025-03-26T08:55:31.477Z",
+            "userId": "ee3e2da2-8691-49b4-bfdc-97b75d75c41c",
+            "projectId": "sxcC7rL7azrL36jR",
+            "user": {
+              "createdAt": "2025-03-26T08:55:30.833Z",
+              "updatedAt": "2025-10-31T12:06:48.000Z",
+              "id": "ee3e2da2-8691-49b4-bfdc-97b75d75c41c",
+              "email": "nicolas@mhms.fr",
+              "firstName": "Nicolas",
+              "lastName": "MARILLOT",
+              "personalizationAnswers": {
+                "version": "v4",
+                "personalization_survey_submitted_at": "2025-03-26T08:57:32.736Z",
+                "personalization_survey_n8n_version": "1.84.1",
+                "companySize": "<20",
+                "companyType": "education",
+                "role": "business-owner",
+                "reportedSource": "google"
+              },
+              "settings": {
+                "userActivated": true,
+                "easyAIWorkflowOnboarded": true,
+                "firstSuccessfulWorkflowId": "wjyuMVry3gJTaFHp",
+                "userActivatedAt": 1742983301926,
+                "npsSurvey": {
+                  "waitingForResponse": true,
+                  "ignoredCount": 1,
+                  "lastShownAt": 1761730099343
+                },
+                "dismissedCallouts": {
+                  "preBuiltAgentsModalCallout": true
+                }
+              },
+              "disabled": false,
+              "mfaEnabled": false,
+              "lastActiveAt": "2025-10-30",
+              "isPending": false
+            }
+          }
+        ]
+      }
+    }
+  ],
   "tags": [
     {
       "createdAt": "2025-10-29T09:29:02.108Z",

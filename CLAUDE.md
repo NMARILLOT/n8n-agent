@@ -12,17 +12,6 @@ Expert n8n developer specialized in creating, modifying, and improving automatio
 
 ---
 
-## 🎯 Core Mission
-
-Create and manage n8n workflows via API with full autonomy for:
-- Creating new workflows programmatically
-- Modifying existing workflows
-- Deploying workflows automatically
-- Managing workflow lifecycle (create, update, delete, activate)
-- Maintaining workflow documentation
-
----
-
 ## 🚀 Essential Commands
 
 ### Deployment & Management
@@ -36,7 +25,7 @@ Create and manage n8n workflows via API with full autonomy for:
 ./scripts/deploy.sh                        # Deploy all workflows
 ./scripts/deploy.sh --dir "System Name"    # Deploy specific system
 
-# Debug mode (environment variable)
+# Debug mode
 DEBUG=1 ./scripts/deploy.sh
 ```
 
@@ -47,29 +36,25 @@ DEBUG=1 ./scripts/deploy.sh
 cp .env.example .env
 # Edit .env and add N8N_API_KEY from https://auto.mhms.fr/
 
-# 2. List current workflows
-./scripts/list.sh
+# 2. Make changes to workflow JSON files
 
-# 3. Make changes to workflow JSON files
-
-# 4. Deploy with dry-run first
+# 3. Deploy with dry-run first
 ./scripts/deploy.sh --dry-run
 
-# 5. Deploy for real (auto-commits to Git before deploying)
+# 4. Deploy for real (auto-commits to Git before deploying)
 ./scripts/deploy.sh
 
-# 6. Push to GitHub (after successful deployment)
+# 5. Push to GitHub after successful deployment
 git push origin main
 ```
 
-### Git Versioning
+### Fetch Current Layout from n8n
 
-Every deployment **automatically creates a Git commit** before deploying:
-- Timestamp of deployment
-- Target workflows (all or specific system)
-- Mode (production or dry-run)
-
-This ensures complete version history and rollback capability.
+```bash
+# Retrieve current workflow layouts to understand user preferences
+export N8N_API_KEY="your_key"
+python3 scripts/fetch-current-layout.py
+```
 
 ---
 
@@ -79,38 +64,24 @@ This ensures complete version history and rollback capability.
 
 ```
 n8n Agent/
-├── CLAUDE.md                    # This file - Claude Code guidance
-├── n8n_instructions.md          # French n8n developer instructions
+├── CLAUDE.md                    # This file
 ├── README.md                    # Project overview
 ├── DEPLOYMENT.md                # Deployment guide
 ├── BUGS_KNOWLEDGE.md            # Bug tracking database
-├── WORKFLOW_GUIDELINES.md       # Workflow best practices
+├── WORKFLOW_GUIDELINES.md       # Visual layout & best practices
 ├── .env                         # Configuration (API keys)
-├── .env.example                 # Configuration template
 │
 ├── scripts/
-│   ├── deploy.sh                # Bash deployment wrapper
-│   ├── deploy.js                # Node.js deployment logic (380 lines)
-│   ├── list.sh                  # List workflows wrapper
-│   └── list-workflows.js        # List workflows from n8n API
-│
-├── claudedocs/                  # Architecture analysis & guides
-│   ├── START_HERE.md            # Quick start decision guide
-│   ├── UPDATED_SUMMARY.md       # Current state analysis
-│   ├── UPDATED_ANALYSIS.md      # Detailed architecture review
-│   ├── IMPLEMENTATION_ROADMAP.md
-│   ├── ARCHITECTURE_ANALYSIS.md
-│   └── README.md
-│
-├── .claude/
-│   └── commands/
-│       └── bug.md               # /bug command workflow
+│   ├── deploy.sh                # Deployment with auto-commit
+│   ├── deploy.js                # Node.js deployment logic
+│   ├── list-workflows.js        # List workflows from API
+│   ├── fetch-current-layout.py  # Retrieve layouts from n8n
+│   └── your-style-layout.py     # User's preferred layout style
 │
 └── [System Folders]/            # Each system = group of related workflows
     ├── README.md                # System documentation
     └── workflow/
-        ├── workflow1.json
-        └── workflow2.json
+        └── *.json               # Workflow files
 ```
 
 ### API Integration (scripts/deploy.js)
@@ -122,32 +93,81 @@ function apiRequest(method, endpoint, body)
 
 // Workflow operations
 async function getRemoteWorkflows()      // GET /api/v1/workflows
-async function getWorkflow(id)           // GET /api/v1/workflows/:id
 async function createWorkflow(data)      // POST /api/v1/workflows
-async function updateWorkflow(id, data)  // PUT /api/v1/workflows/:id
+async function updateWorkflow(id, data)  // PUT /api/v1/workflows
 
 // Data preparation
 function cleanWorkflowForAPI(workflow)   // Remove unsupported fields
 ```
 
 **Update Logic**:
-- Preserves: `pinData` (test data), `staticData` (workflow state)
+- Preserves: `pinData`, `staticData`
 - Cleans: `id`, `createdAt`, `updatedAt`, `versionId`
-- Excludes: `executionOrder`, `callerPolicy` (unsupported by API)
+- Excludes: `executionOrder`, `callerPolicy` (unsupported)
 
-**Workflow Matching**:
-```javascript
-// Workflows matched by name field
-const existingWorkflow = remoteWorkflows.find(w => w.name === workflowName);
+**Workflow Matching**: Matched by `name` field (exact match, case-sensitive)
 
-if (existingWorkflow) {
-    // Update existing
-    await updateWorkflow(existingWorkflow.id, workflowData);
-} else {
-    // Create new
-    await createWorkflow(workflowData);
-}
+---
+
+## 🎨 Visual Layout Guidelines (CRITICAL)
+
+### User's Preferred Layout Style
+
+Based on analyzed preferences from `scripts/your-style-layout.py`:
+
+**Key Characteristics**:
+- ❌ **NO sticky notes** - User prefers clean view without overlays
+- ✅ **Horizontal spacing**: ~150-240px (compact)
+- ✅ **Vertical spacing**: ~160-200px (generous for readability)
+- ✅ **Left-to-right flow**: Natural reading direction
+- ✅ **Parallel branches**: Stacked vertically with clear separation
+- ✅ **No line crossings**: Clean connections
+
+### Layout Principles
+
+1. **Horizontal Flow** (Left → Right)
+   - Trigger/inputs on the left
+   - Processing in the middle
+   - Outputs on the right
+
+2. **Vertical Branching**
+   - Branches stack vertically (200px spacing minimum)
+   - Each branch flows horizontally at its Y level
+   - No diagonal connections
+
+3. **Column Organization**
+   - Column 1: Triggers (X ≈ -600 to -800)
+   - Column 2: Routing/Tools (X ≈ -200 to -400)
+   - Column 3+: Processing (X increments of 200-300px)
+
+### Example: MCP Workflow Layout
+
 ```
+MCP Server Trigger     (X: -1008, Y: 256)
+    ↓
+Tools (vertical column, X: -1264):
+    search_projects    (Y: -368)
+    get_project_by_id  (Y: -208)
+    list_categories    (Y: -48)
+    ...                (Y: +160px each)
+    ↓
+Execute Trigger → Switch → Branches (parallel, 160px vertical spacing)
+```
+
+### When Modifying Layouts
+
+**ALWAYS**:
+1. Check `scripts/fetch-current-layout.py` to see current state
+2. Preserve user's spacing preferences (~150px horizontal, ~200px vertical)
+3. Never add sticky notes unless explicitly requested
+4. Keep horizontal flow left-to-right
+5. Separate parallel branches vertically (200px minimum)
+
+**NEVER**:
+- Add sticky notes by default
+- Cross connection lines
+- Use tight spacing (<150px horizontal)
+- Arrange nodes in grid patterns without flow direction
 
 ---
 
@@ -161,16 +181,9 @@ if (existingWorkflow) {
    mkdir "My New System/workflow"
    ```
 
-2. **Add workflows**:
-   ```bash
-   # Export from n8n or create JSON
-   # Place in workflow/ directory
-   ```
+2. **Add workflows**: Export from n8n or create JSON
 
-3. **Create README.md**:
-   - Use template from n8n_instructions.md
-   - Document objectives, integrations, credentials
-   - List all workflows and their roles
+3. **Create README.md** following template in `n8n_instructions.md`
 
 4. **Deploy**:
    ```bash
@@ -180,83 +193,74 @@ if (existingWorkflow) {
 
 ### Modifying Existing Workflows
 
-1. **List current state**:
+1. **Fetch current state** (understand user's layout):
    ```bash
-   ./scripts/list.sh
+   python3 scripts/fetch-current-layout.py
    ```
 
-2. **Edit local JSON**:
-   - Modify workflow JSON files directly
-   - OR export from n8n editor after manual changes
+2. **Edit local JSON**: Modify workflow files directly
 
-3. **Update documentation**:
-   - Update system README.md if changes affect architecture
+3. **Update documentation**: Update system README.md if needed
 
-4. **Deploy with automatic Git commit**:
+4. **Deploy** (auto-commits before deploying):
    ```bash
-   ./scripts/deploy.sh --dry-run --dir "System Name"
-   ./scripts/deploy.sh --dir "System Name"  # Auto-commits before deploying
-   git push origin main                      # Push to GitHub
+   ./scripts/deploy.sh --dir "System Name"
+   git push origin main
    ```
 
-### Git History and Rollback
+### Layout Modification Workflow
 
-```bash
-# View deployment history
-git log --oneline --grep="Pre-deployment"
+When asked to reorganize or improve workflow layouts:
 
-# View changes to a specific workflow
-git log --follow -- "System Name/workflow/workflow.json"
+```python
+# 1. Fetch current layout to understand preferences
+python3 scripts/fetch-current-layout.py
 
-# Rollback to previous version
-git checkout COMMIT_HASH -- "System Name/workflow/workflow.json"
-./scripts/deploy.sh --dir "System Name"  # Redeploy old version
+# 2. Analyze spacing patterns
+# Check: horizontal spacing, vertical spacing, sticky note usage
+
+# 3. Create layout script based on user's style
+# Reference: scripts/your-style-layout.py
+
+# 4. Apply layout
+python3 scripts/custom-layout.py
+
+# 5. Deploy
+./scripts/deploy.sh --dir "System Name"
 ```
 
-### Bug Tracking Workflow
+---
+
+## 🐛 Bug Tracking Workflow
 
 **Before debugging any issue**:
-1. Check BUGS_KNOWLEDGE.md for known issues
+1. Check `BUGS_KNOWLEDGE.md` for known issues
 2. Search by node type, error message, or symptom
 
 **After resolving any bug**:
-1. Document immediately in BUGS_KNOWLEDGE.md
-2. Follow standard format: [BUG-XXX] with symptoms, root cause, solution
-3. Update statistics section
+1. Document immediately in `BUGS_KNOWLEDGE.md`
+2. Follow standard format: `[BUG-XXX]` with symptoms, root cause, solution
 
 **Automated workflow**:
 ```bash
-# Use /bug command for automated bug handling
-/bug [description]
+/bug [description]  # Use SuperClaude command
 ```
 
 ---
 
 ## 🤖 SuperClaude Framework Integration
 
-This project uses SuperClaude Framework with full autonomy:
-
 ### Available Commands
-- `/sc:implement` - Feature implementation with API
-- `/sc:analyze` - Architecture and code analysis
-- `/sc:design` - System architecture design
-- `/sc:improve` - Code quality improvements
-- `/sc:troubleshoot` - Debug and fix issues
+- `/sc:implement` - Feature implementation
+- `/sc:analyze` - Architecture analysis
+- `/sc:design` - System design
+- `/sc:troubleshoot` - Debug issues
 - `/sc:document` - Generate documentation
-- `/sc:test` - Run tests and validation
-- `/bug` - Automated bug tracking workflow
-
-### Execution Modes
-- Task Management: Multi-step coordination
-- Brainstorming: Requirements discovery
-- Research: Deep investigation
-- Orchestration: Tool optimization
-- Token Efficiency: Compressed communication
+- `/bug` - Automated bug tracking
 
 ### Specialized Agents
 - backend-architect: API and system design
 - frontend-architect: UI components
-- security-engineer: Security review
 - performance-engineer: Optimization
 - technical-writer: Documentation
 
@@ -285,13 +289,11 @@ Get API key from: `https://auto.mhms.fr/settings/api`
 - **SSE Servers**: Server-Sent Events for real-time communication
 - **Tools**: Callable functions exposed by MCP servers
 - **Triggers**: Event-based workflow activation
-- **Resources**: Structured data access patterns
 
 ### Workflow Patterns
-- **Tool Workflows**: Reusable workflow components called as functions
-- **Agent Loops**: Autonomous agents with planning and execution
-- **Memory Management**: Conversation state and context retention
-- **Error Handling**: Graceful degradation and retry logic
+- **Tool Workflows**: Reusable workflow components
+- **Agent Loops**: Autonomous agents with planning/execution
+- **Memory Management**: Conversation state retention
 
 ---
 
@@ -307,21 +309,20 @@ Get API key from: `https://auto.mhms.fr/settings/api`
 - Ensure workflow `name` field matches exactly (case-sensitive)
 - Check `DEBUG=1 ./scripts/deploy.sh` for detailed logs
 
-**List shows no workflows**:
-- Verify n8n instance is accessible
-- Check API key permissions
+**Layout looks wrong after deployment**:
+- Fetch current layout: `python3 scripts/fetch-current-layout.py`
+- Check user's preferred spacing in `scripts/your-style-layout.py`
+- Remember: NO sticky notes by default
 
 ---
 
 ## 📚 Documentation Structure
 
 - **CLAUDE.md** (this file): Claude Code guidance
-- **n8n_instructions.md**: README.md template for workflow systems (French)
-- **README.md**: Project overview and quick start
-- **DEPLOYMENT.md**: Complete deployment documentation
-- **GIT_SETUP.md**: Git & GitHub setup and versioning guide
+- **WORKFLOW_GUIDELINES.md**: Visual layout best practices
+- **README.md**: Project overview
+- **DEPLOYMENT.md**: Complete deployment guide
 - **BUGS_KNOWLEDGE.md**: Bug tracking database
-- **claudedocs/**: Architecture analysis and roadmaps
 
 ---
 
@@ -329,15 +330,16 @@ Get API key from: `https://auto.mhms.fr/settings/api`
 
 As Claude Code working on this project:
 
-1. **Always check documentation first** (BUGS_KNOWLEDGE.md, READMEs)
-2. **Test with --dry-run** before actual deployment
-3. **Git commits automatically** before each deployment (no manual commits needed)
-4. **Update documentation** when making changes (especially system README.md)
-5. **Follow n8n_instructions.md** template for new workflow system READMEs
-6. **Document bugs immediately** in BUGS_KNOWLEDGE.md when resolved
-7. **Use SuperClaude commands** for complex tasks (/sc:implement, /bug, etc.)
-8. **Preserve workflow state** (pinData, staticData) during updates
-9. **Push to GitHub** after successful deployments (git push origin main)
+1. **Visual layout**: Always check user's style preferences first (`scripts/your-style-layout.py`)
+2. **No sticky notes**: Don't add sticky notes unless explicitly requested
+3. **Spacing**: Use ~200px horizontal, ~200px vertical
+4. **Flow direction**: Always left-to-right horizontal flow
+5. **Test with --dry-run** before actual deployment
+6. **Git commits automatically** before each deployment
+7. **Update documentation** when making changes
+8. **Document bugs immediately** in BUGS_KNOWLEDGE.md
+9. **Preserve workflow state** (pinData, staticData)
+10. **Push to GitHub** after successful deployments
 
 ---
 
