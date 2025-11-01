@@ -1,0 +1,50 @@
+{
+  "name": "Test Error Handler Webhook",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "test-error-handler",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -400,
+        300
+      ],
+      "id": "webhook-trigger-001",
+      "name": "Webhook",
+      "webhookId": "test-error-webhook"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Test volontaire d'erreur pour vérifier le Global Error Handler\nthrow new Error('🧪 Test Error Handler: Ceci est une erreur de test volontaire pour vérifier le système de logging');"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -200,
+        300
+      ],
+      "id": "test-error-001",
+      "name": "Generate Test Error",
+      "notes": "🧪 Génère une erreur volontaire\n\nCette erreur déclenchera le Global Error Handler"
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Generate Test Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "errorWorkflow": "2YHssdr9SHK0iKeP"
+  }
+}

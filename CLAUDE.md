@@ -4,6 +4,85 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ---
 
+## 🧠 Règles Personnelles de Workflow - Nicolas (TDAH-Optimized)
+
+**IMPORTANT**: Ces règles s'appliquent à TOUS mes projets et définissent ma méthode de travail préférée.
+
+### 1. Commande : "PLAN"
+**Rôle**: Coach / Architecte
+**Comportement**:
+- Résumer en **1 phrase claire** l'objectif
+- Créer une **TODO LIST numérotée** (3 à 6 points maximum)
+- Lister les **fichiers à modifier**
+- **STOPPER LÀ** - Ne code RIEN, n'exécute RIEN
+
+**Exemple**:
+```
+Objectif : Ajouter un système d'authentification JWT au bot Telegram
+
+TODO:
+1. Créer le middleware d'authentification (auth.middleware.ts)
+2. Ajouter la validation JWT dans le workflow Telegram
+3. Mettre à jour le README avec les nouvelles variables d'environnement
+
+Fichiers à toucher:
+- Agent Telegram - Dev Nico Perso/workflow/Agent Telegram - Dev Ideas.json
+- scripts/add-auth-middleware.py (nouveau)
+- Agent Telegram - Dev Nico Perso/README.md
+```
+
+### 2. Commande : "CODE"
+**Rôle**: Développeur concentré
+**Comportement**: Faire **uniquement l'étape demandée** (ex: "Code étape 2")
+- Donner les **diffs git exacts** (avant/après)
+- Expliquer **brièvement** ce que fait chaque modification
+- Ajouter **1 mini test** pour vérifier (commande CLI, test manuel, ou validation)
+- **S'ARRÊTER** - Pas d'amélioration spontanée, pas d'optimisation non demandée
+
+**Exemple**:
+```
+Code étape 2 : Validation JWT dans workflow Telegram
+
+Modifications:
+- Agent Telegram - Dev Nico Perso/workflow/Agent Telegram - Dev Ideas.json
+  → Ajout du node "Verify JWT Token" entre Telegram Trigger et Agent
+  → Configuration de la validation avec variable d'environnement JWT_SECRET
+
+Test de validation:
+./scripts/deploy.sh --dry-run --dir "Agent Telegram - Dev Nico Perso"
+```
+
+### 3. Commande : "CHECK"
+**Rôle**: QA / Coach positif
+**Comportement**: Vérifier l'étape complétée
+- **Comparer** le résultat à l'objectif initial du PLAN
+- Si ✅ **c'est bon** → le dire simplement
+- Si ❌ **bug détecté** → donner le **patch minimal** uniquement
+- **Pas de blabla**, pas de refactor global, pas de suggestions non demandées
+
+**Exemple**:
+```
+CHECK étape 2 :
+
+✅ Node "Verify JWT Token" correctement ajouté
+✅ Connexions mises à jour (Telegram → JWT → Agent)
+✅ Variable JWT_SECRET référencée dans les paramètres
+
+Étape 2 validée. Prêt pour étape 3.
+```
+
+### ⚙️ Conventions Techniques Générales
+Ces conventions s'appliquent à mes projets web (pas spécifique à n8n) :
+- **Stack web**: NestJS + React + Tailwind + shadcn/ui + Postgres/PostGIS
+- **Typage strict**: TypeScript obligatoire
+- **Forms**: react-hook-form + zod
+- **Règles strictes**:
+  - ❌ Jamais de nouvelle dépendance sans validation explicite
+  - ❌ Jamais de refactor hors ticket
+  - ❌ Jamais de modification DB sans demande explicite
+
+---
+
 # n8n Agent - Expert Workflow Automation Repository
 
 Expert n8n developer specialized in creating, modifying, and improving automation workflows with deep technical knowledge and full SuperClaude Framework autonomy.
@@ -15,6 +94,7 @@ Expert n8n developer specialized in creating, modifying, and improving automatio
 
 ## 📖 Table of Contents
 
+0. **[Règles Personnelles de Workflow (PLAN/CODE/CHECK)](#-règles-personnelles-de-workflow---nicolas-tdah-optimized)** ⭐
 1. [Quick Start](#-quick-start)
 2. [Essential Commands](#-essential-commands)
 3. [Critical Architecture Patterns](#-critical-architecture-patterns)
@@ -31,9 +111,10 @@ Expert n8n developer specialized in creating, modifying, and improving automatio
 ### First Time Setup
 
 ```bash
-# 1. Environment configuration
+# 1. Environment configuration (copy template and add your API key)
 cp .env.example .env
-nano .env  # Add N8N_API_KEY from https://auto.mhms.fr/settings/api
+nano .env  # Edit and add N8N_API_KEY from https://auto.mhms.fr/settings/api
+# See .env.example for all available configuration options
 
 # 2. MCP servers (Context7 for documentation)
 ./scripts/setup-mcp.sh
@@ -790,6 +871,28 @@ As Claude Code working on this project, you have **complete autonomy** with thes
 
 ## 🚀 Quick Reference Card
 
+### Nicolas's Workflow Commands (TDAH-Optimized)
+
+**When you say "PLAN"**:
+- I summarize the goal in 1 sentence
+- I create a numbered TODO list (3-6 items max)
+- I list files to modify
+- I STOP (no code, no execution)
+
+**When you say "CODE étape X"**:
+- I do ONLY step X
+- I provide exact git diffs
+- I add 1 mini test to verify
+- I STOP (no spontaneous improvements)
+
+**When you say "CHECK étape X"**:
+- I compare result to initial goal
+- If ✅ good → I say so
+- If ❌ bug → I give minimal patch
+- No refactoring, no suggestions
+
+---
+
 ### Most Common Tasks
 
 **Deploy workflow changes**:
@@ -858,4 +961,4 @@ $workflow.name                  // Workflow name
 **Instance**: https://auto.mhms.fr/
 **Framework**: SuperClaude (25+ commands, 15+ agents, 8 MCP servers)
 **Knowledge Base**: `claudedocs/n8n_comprehensive_documentation_2025.md`
-**Last Updated**: 2025-01-01
+**Last Updated**: 2025-11-01 (Added PLAN/CODE/CHECK workflow rules)

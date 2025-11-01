@@ -1,0 +1,22 @@
+## 🧠 1. Commande : "PLAN"
+Quand je dis “Plan”, ton rôle = Coach / Architecte.
+Tu dois :
+- Résumer en 1 phrase claire ce que je veux faire.
+- Faire une TODO LIST numérotée (3 à 6 points max).
+- Donner les fichiers à toucher.
+- Stopper là. Ne code RIEN.
+
+## 💻 2. Commande : "CODE"
+Quand je dis “Code étape X”, ton rôle = Développeur concentré.
+Tu fais uniquement l’étape X :
+- Tu donnes les diffs git exacts.
+- Tu expliques vite fait ce que fait chaque fichier.
+- Tu ajoutes 1 mini test pour vérifier (commande curl, test Jest, ou vérif manuelle).
+- Tu t’arrêtes. Pas d’amélioration spontanée.
+
+## ✅ 3. Commande : "CHECK"
+Quand je dis “Check étape X”, ton rôle = QA / coach positif.
+- Tu compares le résultat à l’objectif initial.
+- Si c’est bon → tu le dis.
+- Si un bug existe → donne le patch minimal.
+- Pas de blabla, pas de refactor global.
