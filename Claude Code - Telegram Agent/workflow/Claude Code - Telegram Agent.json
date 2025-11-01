@@ -1,0 +1,578 @@
+{
+  "name": "Claude Code - Telegram Agent",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ]
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1,
+      "position": [-1000, 300],
+      "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+      "name": "Telegram Trigger",
+      "webhookId": "claude-code-agent",
+      "credentials": {
+        "telegramApi": {
+          "id": "GyCvAZHBuXIAzVAC",
+          "name": "Telegram Claude Code"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "claude-code-notification",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [-1000, 500],
+      "id": "b2c3d4e5-f678-90ab-cdef-1234567890ab",
+      "name": "Webhook Trigger",
+      "webhookId": "claude-code-webhook"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.notification === true }}",
+                    "operator": {
+                      "type": "boolean",
+                      "operation": "true"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "notification"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.message !== undefined }}",
+                    "operator": {
+                      "type": "boolean",
+                      "operation": "true"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "telegram"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [-700, 400],
+      "id": "c3d4e5f6-7890-abcd-ef12-34567890abcd",
+      "name": "Input Router"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.message?.voice !== undefined }}",
+                    "operator": {
+                      "type": "boolean",
+                      "operation": "true"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "vocal"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.message?.text !== undefined }}",
+                    "operator": {
+                      "type": "boolean",
+                      "operation": "true"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "text"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [-400, 200],
+      "id": "d4e5f678-90ab-cdef-1234-567890abcdef",
+      "name": "Telegram Message Type"
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "fileId": "={{ $json.message.voice.file_id }}"
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [-200, 100],
+      "id": "e5f67890-abcd-ef12-3456-7890abcdef12",
+      "name": "Get Audio File",
+      "credentials": {
+        "telegramApi": {
+          "id": "GyCvAZHBuXIAzVAC",
+          "name": "Telegram Claude Code"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "download"
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [0, 100],
+      "id": "f6789012-3456-7890-abcd-ef1234567890",
+      "name": "Download Audio"
+    },
+    {
+      "parameters": {
+        "model": "whisper-1",
+        "binaryPropertyName": "data"
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.6,
+      "position": [200, 100],
+      "id": "g7890123-4567-890a-bcde-f12345678901",
+      "name": "Whisper Transcription",
+      "credentials": {
+        "openAiApi": {
+          "id": "openai-cred-id",
+          "name": "OpenAI"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "user_message",
+              "name": "user_message",
+              "value": "={{ $json.text }}",
+              "type": "string"
+            },
+            {
+              "id": "chat_id",
+              "name": "chat_id",
+              "value": "={{ $json.message.chat.id }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [400, 100],
+      "id": "h8901234-5678-90ab-cdef-123456789012",
+      "name": "Format Vocal Input"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "user_message",
+              "name": "user_message",
+              "value": "={{ $json.message.text }}",
+              "type": "string"
+            },
+            {
+              "id": "chat_id",
+              "name": "chat_id",
+              "value": "={{ $json.message.chat.id }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [-200, 300],
+      "id": "i9012345-6789-0abc-def1-234567890123",
+      "name": "Format Text Input"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "notification_message",
+              "name": "notification_message",
+              "value": "={{ \"🎯 Tâche terminée: \" + $json.task_title + \"\\n\\n📝 Résumé: \" + $json.summary + \"\\n\\n📌 Contexte: \" + $json.context }}",
+              "type": "string"
+            },
+            {
+              "id": "requires_approval",
+              "name": "requires_approval",
+              "value": "={{ $json.requires_approval || false }}",
+              "type": "boolean"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [-400, 600],
+      "id": "j0123456-7890-abcd-ef12-345678901234",
+      "name": "Format Notification"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $('Format Vocal Input').item.json.user_message || $('Format Text Input').item.json.user_message }}",
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "🚨 RÈGLES CRITIQUES - JAMAIS DÉSOBÉIR 🚨\n\nAVANT CHAQUE RÉPONSE, TU DOIS TE POSER CES QUESTIONS:\n\n1. ❓ Est-ce une ACTION (créer/supprimer/modifier/chercher) ?\n   → OUI ? Va à l'étape 2\n   → NON ? Réponds directement (conversation simple)\n\n2. ⚠️ AI-JE APPELÉ L'OUTIL CORRESPONDANT ?\n   → OUI ? Continue à l'étape 3\n   → NON ? ❌ STOP ! APPELLE L'OUTIL D'ABORD !\n\n3. ✅ AI-JE REÇU UN RÉSULTAT DE L'OUTIL ?\n   → OUI ? Tu peux confirmer avec les données reçues\n   → NON ? ❌ NE CONFIRME RIEN ! Dis qu'il y a eu une erreur\n\n🚫 INTERDICTIONS ABSOLUES:\n\n- Tu ne peux PAS dire \"✅ Supprimé\" sans avoir appelé delete_idea()\n- Tu ne peux PAS dire \"✅ Créé\" sans avoir appelé create_*()\n- Tu ne peux PAS dire \"✅ Modifié\" sans avoir appelé update_*()\n- Tu ne peux PAS inventer des IDs (IDEA-XXX, PROJ-XXX)\n\nSI TU CONFIRMES UNE ACTION SANS AVOIR APPELÉ L'OUTIL:\n→ Tu MENS à l'utilisateur\n→ Tu crées de la CONFUSION\n→ Tu détruis la CONFIANCE\n\n══════════════════════════════════════════════════════════════\n\nTu es un assistant intelligent pour capturer et organiser mes idées de projets de développement.\n\n🎯 TES DEUX CAPACITÉS:\n\n1. **DISCUSSION**: Conversations normales, questions sur tes outils, etc.\n2. **ACTION**: Créer/chercher/modifier/supprimer des projets et idées dans Notion\n\n🛠️ OUTILS DISPONIBLES:\n\n**Projets**:\n- search_projects(query) - Chercher des projets\n- get_project_by_id(id) - Récupérer un projet spécifique\n- list_categories() - Liste des catégories disponibles\n- create_project(...) - Créer un nouveau projet\n\n**Idées**:\n- create_idea(...) - Créer une idée\n- search_ideas(query) - Chercher des idées\n- get_idea_by_id(id) - Récupérer une idée\n- update_idea(...) - Modifier une idée\n- delete_idea(idea_id) - Archiver une idée\n\n📌 MODE NOMADE (NOUVEAU):\n\nQuand tu reçois une notification de fin de tâche depuis Claude Code:\n- Format: { \"notification\": true, \"task_title\": \"...\", \"summary\": \"...\", \"context\": \"...\" }\n- Tu DOIS informer l'utilisateur de manière claire et concise\n- Si requires_approval=true, tu DOIS demander validation avec boutons inline"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [600, 300],
+      "id": "k1234567-890a-bcde-f123-456789012345",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": "gpt-4o",
+        "options": {
+          "temperature": 0.3
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1,
+      "position": [800, 200],
+      "id": "l2345678-90ab-cdef-1234-567890123456",
+      "name": "OpenAI GPT-4o",
+      "credentials": {
+        "openAiApi": {
+          "id": "openai-cred-id",
+          "name": "OpenAI"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('Format Vocal Input').item.json.chat_id || $('Format Text Input').item.json.chat_id }}",
+        "contextWindowLength": 60
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [800, 400],
+      "id": "m3456789-0abc-def1-2345-678901234567",
+      "name": "MongoDB Chat Memory"
+    },
+    {
+      "parameters": {
+        "url": "https://auto.mhms.fr/sse",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth"
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolMcpClient",
+      "typeVersion": 1,
+      "position": [800, 600],
+      "id": "n4567890-abcd-ef12-3456-789012345678",
+      "name": "MCP Client - Notion Tools",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "mcp-auth-id",
+          "name": "MCP Auth"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Format Vocal Input').item.json.chat_id || $('Format Text Input').item.json.chat_id }}",
+        "text": "={{ $json.output }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [1000, 300],
+      "id": "o5678901-bcde-f123-4567-890123456789",
+      "name": "Send Telegram Response",
+      "credentials": {
+        "telegramApi": {
+          "id": "GyCvAZHBuXIAzVAC",
+          "name": "Telegram Claude Code"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "0684789511",
+        "text": "={{ $json.notification_message }}",
+        "additionalFields": {
+          "reply_markup": "={{ $json.requires_approval ? JSON.stringify({inline_keyboard: [[{text: '✅ Approve', callback_data: 'approve'}, {text: '❌ Deny', callback_data: 'deny'}]]}) : '' }}"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [-200, 600],
+      "id": "p6789012-cdef-1234-5678-901234567890",
+      "name": "Send Notification",
+      "credentials": {
+        "telegramApi": {
+          "id": "GyCvAZHBuXIAzVAC",
+          "name": "Telegram Claude Code"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { success: true, message: 'Notification sent' } }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [0, 600],
+      "id": "q7890123-def1-2345-6789-012345678901",
+      "name": "Respond to Webhook"
+    }
+  ],
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "Input Router",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook Trigger": {
+      "main": [
+        [
+          {
+            "node": "Input Router",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Input Router": {
+      "main": [
+        [
+          {
+            "node": "Format Notification",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Telegram Message Type",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Telegram Message Type": {
+      "main": [
+        [
+          {
+            "node": "Get Audio File",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Format Text Input",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Audio File": {
+      "main": [
+        [
+          {
+            "node": "Download Audio",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download Audio": {
+      "main": [
+        [
+          {
+            "node": "Whisper Transcription",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Whisper Transcription": {
+      "main": [
+        [
+          {
+            "node": "Format Vocal Input",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Vocal Input": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Text Input": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Notification": {
+      "main": [
+        [
+          {
+            "node": "Send Notification",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Send Telegram Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI GPT-4o": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MongoDB Chat Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MCP Client - Notion Tools": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Notification": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 2,
+  "versionId": "01234567-89ab-cdef-0123-456789abcdef"
+}
