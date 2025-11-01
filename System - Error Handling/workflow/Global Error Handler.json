@@ -247,7 +247,8 @@
           "name": "Google Sheets Account"
         }
       },
-      "notes": "📊 Logging permanent dans Google Sheets\n\nToutes les erreurs sont enregistrées pour analyse ultérieure"
+      "notes": "📊 Logging permanent dans Google Sheets\n\nToutes les erreurs sont enregistrées pour analyse ultérieure",
+      "continueOnFail": true
     },
     {
       "parameters": {
@@ -283,8 +284,8 @@
       "name": "Send Telegram Alert",
       "credentials": {
         "telegramApi": {
-          "id": "YOUR_TELEGRAM_CREDENTIAL_ID",
-          "name": "Telegram Bot"
+          "id": "tecnNETDK9d3pNmM",
+          "name": "Telegram Nico Dev (perso)"
         }
       },
       "notes": "📤 Notification Telegram immédiate\n\nUniquement pour erreurs critiques"
