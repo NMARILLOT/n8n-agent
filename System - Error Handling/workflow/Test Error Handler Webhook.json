@@ -18,7 +18,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Test volontaire d'erreur pour vérifier le Global Error Handler\nthrow new Error('🧪 Test Error Handler: Ceci est une erreur de test volontaire pour vérifier le système de logging');"
+        "jsCode": "// Test volontaire d'erreur critique pour vérifier le Global Error Handler\nthrow new Error('🧪 Test Error Handler: 401 Unauthorized - Ceci est une erreur de test CRITIQUE pour vérifier Telegram');"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
