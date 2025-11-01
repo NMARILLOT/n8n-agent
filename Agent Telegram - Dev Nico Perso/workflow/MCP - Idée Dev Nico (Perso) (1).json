@@ -2411,7 +2411,9 @@
       ]
     }
   },
-  "settings": {},
+  "settings": {
+    "errorWorkflow": "2YHssdr9SHK0iKeP"
+  },
   "staticData": null,
   "meta": null,
   "pinData": {},
