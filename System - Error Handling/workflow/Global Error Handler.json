@@ -248,8 +248,7 @@
           "name": "Google Sheets Account"
         }
       },
-      "notes": "📊 Logging permanent dans Google Sheets\n\nToutes les erreurs sont enregistrées pour analyse ultérieure",
-      "continueOnFail": true
+      "notes": "📊 Logging permanent dans Google Sheets\n\nToutes les erreurs sont enregistrées pour analyse ultérieure"
     },
     {
       "parameters": {
@@ -289,11 +288,7 @@
           "name": "Telegram Bot"
         }
       },
-      "notes": "📤 Notification Telegram immédiate\n\nUniquement pour erreurs critiques",
-      "continueOnFail": true,
-      "retryOnFail": true,
-      "maxTries": 3,
-      "waitBetweenTries": 1000
+      "notes": "📤 Notification Telegram immédiate\n\nUniquement pour erreurs critiques"
     },
     {
       "parameters": {
