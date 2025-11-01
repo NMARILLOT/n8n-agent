@@ -1,6 +1,5 @@
 {
   "name": "Global Error Handler",
-  "active": true,
   "nodes": [
     {
       "parameters": {},
