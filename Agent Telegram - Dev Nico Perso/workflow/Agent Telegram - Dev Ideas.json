@@ -1,10 +1,6 @@
 {
-  "createdAt": "2025-10-29T09:29:34.295Z",
-  "updatedAt": "2025-10-31T20:30:53.638Z",
-  "id": "4lYuNSDjiyUjzHWL",
   "name": "Agent Telegram - Dev Ideas",
   "active": true,
-  "isArchived": false,
   "nodes": [
     {
       "parameters": {
@@ -27,7 +23,8 @@
           "id": "tecnNETDK9d3pNmM",
           "name": "Telegram Nico Dev (perso)"
         }
-      }
+      },
+      "notes": "📱 Trigger sur messages Telegram (texte ou vocal)"
     },
     {
       "parameters": {
@@ -91,7 +88,7 @@
       ],
       "id": "533bbebd-cf9d-48d9-9558-3d4ee1eb9851",
       "name": "Switch: Type d'entrée",
-      "notes": "🔀 Route vers vocal OU texte (pas les deux)\n\nallMatchingOutputs: false pour n'exécuter qu'une seule branche"
+      "notes": "🔀 Route vers vocal OU texte\n\nallMatchingOutputs: false pour n'exécuter qu'une branche"
     },
     {
       "parameters": {
@@ -103,7 +100,7 @@
       "typeVersion": 1.2,
       "position": [
         -200,
-        -500
+        -100
       ],
       "id": "4b3df01b-05bb-411b-98cd-5a6a4f991048",
       "name": "Get Audio File",
@@ -114,11 +111,12 @@
           "name": "Telegram Nico Dev (perso)"
         }
       },
-      "notes": "📥 Récupère le fichier audio vocal de Telegram"
+      "notes": "📥 Récupère le fichier audio vocal de Telegram",
+      "continueOnFail": true
     },
     {
       "parameters": {
-        "url": "=https://api.telegram.org/file/bot7665572115:AAFsB-QiTQfwFuPv0gaH31ioDhpxKGVzYjA/{{ $json.result.file_path }}",
+        "url": "={{ $json.result.file_path ? `https://api.telegram.org/file/bot${$credentials.telegramApi.token}/${$json.result.file_path}` : '' }}",
         "options": {
           "response": {
             "response": {
@@ -131,10 +129,15 @@
       "typeVersion": 4.2,
       "position": [
         0,
-        -500
+        -100
       ],
       "id": "f7bccd68-0fa1-482b-b728-e0f9637472f9",
-      "name": "Download Audio"
+      "name": "Download Audio",
+      "notes": "⬇️ Télécharge le fichier audio via credentials Telegram (sécurisé)",
+      "continueOnFail": true,
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 1000
     },
     {
       "parameters": {
@@ -148,7 +151,7 @@
       "typeVersion": 1.8,
       "position": [
         200,
-        -500
+        -100
       ],
       "id": "58a116b8-6ef1-4c6f-903c-04c7cb0bfaea",
       "name": "Transcribe Audio",
@@ -157,7 +160,12 @@
           "id": "6foKVjLxDL95kCfm",
           "name": "OpenAi account - Nicolas MARILLOT"
         }
-      }
+      },
+      "notes": "🎤 OpenAI Whisper - Transcription audio en français",
+      "continueOnFail": true,
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 2000
     },
     {
       "parameters": {
@@ -181,10 +189,11 @@
       "typeVersion": 3.4,
       "position": [
         -200,
-        500
+        300
       ],
       "id": "46f760ef-2567-46c1-b0c2-0bbe95a10ff4",
-      "name": "Format Text Input"
+      "name": "Format Text Input",
+      "notes": "📝 Normalise l'input texte"
     },
     {
       "parameters": {
@@ -208,53 +217,34 @@
       "typeVersion": 3.4,
       "position": [
         400,
-        -500
+        -100
       ],
       "id": "4f9992ec-5c1d-4a00-929c-1f4687388f10",
-      "name": "Format Audio Input"
+      "name": "Format Audio Input",
+      "notes": "🎙️ Normalise l'input vocal transcrit"
     },
     {
       "parameters": {
-        "mode": "append",
-        "options": {
-          "waitForAllInputItems": false
-        }
-      },
-      "type": "n8n-nodes-base.merge",
-      "typeVersion": 3,
-      "position": [
-        600,
-        100
-      ],
-      "id": "7fcae666-bef9-4340-b921-6f4f0c83a7af",
-      "name": "Merge Inputs"
-    },
-    {
-      "parameters": {
-        "model": {
-          "__rl": true,
-          "value": "claude-sonnet-4-5-20250929",
-          "mode": "list"
-        },
+        "model": "gpt-4o",
         "options": {
           "temperature": 0.3
         }
       },
-      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
-      "typeVersion": 1.3,
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1,
       "position": [
         800,
-        400
+        300
       ],
-      "id": "ecc5b5e1-74e2-4d2b-93a0-2ed2190660e1",
-      "name": "Claude Sonnet 4.5",
+      "id": "befb4948-c4da-4f2f-8d4b-480ef5dfdcd4",
+      "name": "GPT-4o",
       "credentials": {
-        "anthropicApi": {
-          "id": "DHjhBnBvG95IQssg",
-          "name": "Anthropic account"
+        "openAiApi": {
+          "id": "6foKVjLxDL95kCfm",
+          "name": "OpenAi account - Nicolas MARILLOT"
         }
       },
-      "notes": "⚠️ DÉSACTIVÉ - Claude ne supporte pas tool_choice. Utilise GPT-4o à la place."
+      "notes": "🤖 GPT-4o - Excellent tool calling support\n\nTemp: 0.3 pour consistance"
     },
     {
       "parameters": {
@@ -267,7 +257,7 @@
       "typeVersion": 1.2,
       "position": [
         1000,
-        400
+        300
       ],
       "id": "da525435-acdd-4b66-852e-98d31d05f559",
       "name": "MCP Client - Projects",
@@ -276,7 +266,8 @@
           "id": "aCtUA2HFdnNADDGH",
           "name": "Notion MCPAuth"
         }
-      }
+      },
+      "notes": "🔌 MCP Server pour Notion (9 outils disponibles)"
     },
     {
       "parameters": {
@@ -292,11 +283,12 @@
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 1.7,
       "position": [
-        1000,
+        800,
         100
       ],
       "id": "16550105-b424-45e9-a1fc-970102556aa8",
-      "name": "Agent Dev Ideas"
+      "name": "Agent Dev Ideas",
+      "notes": "🧠 AI Agent avec memory + MCP tools\n\nMaxIterations: 10 pour workflows complexes"
     },
     {
       "parameters": {
@@ -305,11 +297,12 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1400,
+        1000,
         100
       ],
       "id": "d6147723-55f6-4961-8724-ebadc7c0ad66",
-      "name": "Format Markdown for Telegram"
+      "name": "Format Markdown for Telegram",
+      "notes": "🎨 Conversion Markdown → Telegram\n\n**bold** → *bold*\n__italic__ → _italic_"
     },
     {
       "parameters": {
@@ -324,7 +317,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        1600,
+        1200,
         100
       ],
       "id": "f7d9e8f1-2616-48f0-84ea-19e6c8a85d8f",
@@ -335,7 +328,12 @@
           "id": "tecnNETDK9d3pNmM",
           "name": "Telegram Nico Dev (perso)"
         }
-      }
+      },
+      "notes": "📤 Envoie la réponse à Telegram",
+      "continueOnFail": true,
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 1000
     },
     {
       "parameters": {
@@ -346,34 +344,12 @@
       "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
       "typeVersion": 1.3,
       "position": [
-        1200,
-        400
+        1000,
+        300
       ],
       "id": "c862975b-99f2-4ec2-a512-a4a811fc2550",
-      "name": "Simple Memory"
-    },
-    {
-      "parameters": {
-        "model": "gpt-4o",
-        "options": {
-          "temperature": 0.3
-        }
-      },
-      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
-      "typeVersion": 1,
-      "position": [
-        120,
-        400
-      ],
-      "id": "befb4948-c4da-4f2f-8d4b-480ef5dfdcd4",
-      "name": "GPT-4o",
-      "credentials": {
-        "openAiApi": {
-          "id": "PLACEHOLDER",
-          "name": "OpenAI account"
-        }
-      },
-      "notes": "🤖 GPT-4o - Excellent tool calling support"
+      "name": "Simple Memory",
+      "notes": "💾 Memory conversationnelle (60 messages)"
     }
   ],
   "connections": {
@@ -461,7 +437,6 @@
         ]
       ]
     },
-    "Claude Sonnet 4.5": {},
     "MCP Client - Projects": {
       "ai_tool": [
         [
@@ -529,79 +504,5 @@
   },
   "settings": {},
   "staticData": null,
-  "meta": {
-    "templateCredsSetupCompleted": true
-  },
-  "pinData": {},
-  "versionId": "ec624993-cbbb-41e1-bcdf-21a7c8abd99e",
-  "triggerCount": 1,
-  "shared": [
-    {
-      "createdAt": "2025-10-29T09:29:34.299Z",
-      "updatedAt": "2025-10-29T09:29:34.299Z",
-      "role": "workflow:owner",
-      "workflowId": "4lYuNSDjiyUjzHWL",
-      "projectId": "sxcC7rL7azrL36jR",
-      "project": {
-        "createdAt": "2025-03-26T08:55:31.477Z",
-        "updatedAt": "2025-03-26T08:57:20.238Z",
-        "id": "sxcC7rL7azrL36jR",
-        "name": "Nicolas MARILLOT <nicolas@mhms.fr>",
-        "type": "personal",
-        "icon": null,
-        "description": null,
-        "projectRelations": [
-          {
-            "createdAt": "2025-03-26T08:55:31.477Z",
-            "updatedAt": "2025-03-26T08:55:31.477Z",
-            "userId": "ee3e2da2-8691-49b4-bfdc-97b75d75c41c",
-            "projectId": "sxcC7rL7azrL36jR",
-            "user": {
-              "createdAt": "2025-03-26T08:55:30.833Z",
-              "updatedAt": "2025-10-31T12:06:48.000Z",
-              "id": "ee3e2da2-8691-49b4-bfdc-97b75d75c41c",
-              "email": "nicolas@mhms.fr",
-              "firstName": "Nicolas",
-              "lastName": "MARILLOT",
-              "personalizationAnswers": {
-                "version": "v4",
-                "personalization_survey_submitted_at": "2025-03-26T08:57:32.736Z",
-                "personalization_survey_n8n_version": "1.84.1",
-                "companySize": "<20",
-                "companyType": "education",
-                "role": "business-owner",
-                "reportedSource": "google"
-              },
-              "settings": {
-                "userActivated": true,
-                "easyAIWorkflowOnboarded": true,
-                "firstSuccessfulWorkflowId": "wjyuMVry3gJTaFHp",
-                "userActivatedAt": 1742983301926,
-                "npsSurvey": {
-                  "waitingForResponse": true,
-                  "ignoredCount": 1,
-                  "lastShownAt": 1761730099343
-                },
-                "dismissedCallouts": {
-                  "preBuiltAgentsModalCallout": true
-                }
-              },
-              "disabled": false,
-              "mfaEnabled": false,
-              "lastActiveAt": "2025-10-30",
-              "isPending": false
-            }
-          }
-        ]
-      }
-    }
-  ],
-  "tags": [
-    {
-      "createdAt": "2025-10-29T09:29:02.108Z",
-      "updatedAt": "2025-10-29T09:29:02.108Z",
-      "id": "klnAN9eLj5IjzwJc",
-      "name": "Agent Claude Code Nico"
-    }
-  ]
+  "pinData": {}
 }
