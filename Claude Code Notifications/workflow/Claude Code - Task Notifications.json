@@ -89,7 +89,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Récupère le chatId de l'utilisateur principal (Nicolas)\n// Ce chatId est fixe et correspond à votre compte Telegram\n\nconst input = $input.first().json;\n\n// IMPORTANT: Remplacer par votre vrai chatId Telegram\n// Pour obtenir votre chatId:\n// 1. Envoyez /start à @userinfobot sur Telegram\n// 2. Il vous donnera votre chatId\nconst nicolasChatId = 'YOUR_CHAT_ID_HERE'; // À configurer\n\nreturn {\n  json: {\n    ...input,\n    chatId: nicolasChatId\n  }\n};"
+        "jsCode": "// Récupère le chatId de l'utilisateur principal (Nicolas)\n// Utilise staticData pour stocker le chatId après la première interaction\n\nconst input = $input.first().json;\nconst staticData = this.getWorkflowStaticData('global');\n\n// Si le chatId est déjà stocké, on l'utilise\nif (staticData.nicolasChatId) {\n  return {\n    json: {\n      ...input,\n      chatId: staticData.nicolasChatId\n    }\n  };\n}\n\n// Sinon, on utilise une valeur par défaut\n// IMPORTANT: Ce chatId sera mis à jour automatiquement\n// quand vous enverrez /start au bot via le workflow \"Interactive Control\"\nconst defaultChatId = '0684789511'; // Temporaire - sera remplacé\n\nreturn {\n  json: {\n    ...input,\n    chatId: defaultChatId,\n    needsConfiguration: true\n  }\n};"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -99,7 +99,7 @@
       ],
       "id": "d4e5f6g7h8i9j0k1l2m3n4o5",
       "name": "Get User ChatId",
-      "notes": "👤 Récupération du Chat ID\n\n⚠️ CONFIGURATION REQUISE:\nRemplacer 'YOUR_CHAT_ID_HERE' par votre vrai chatId Telegram.\n\nPour obtenir votre chatId:\n1. Envoyez /start à @userinfobot sur Telegram\n2. Copiez le 'Id' affiché\n3. Collez-le dans le code ici"
+      "notes": "👤 Récupération du Chat ID\n\nUtilise staticData pour stocker le chatId.\nAprès le premier /start envoyé au bot via le workflow Interactive Control, le chatId sera sauvegardé automatiquement.\n\nPas de configuration manuelle nécessaire !"
     },
     {
       "parameters": {
