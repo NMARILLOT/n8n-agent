@@ -187,9 +187,13 @@ function cleanWorkflowForAPI(workflow, isUpdate = false) {
   const cleanedWorkflow = {
     name: workflow.name,
     nodes: workflow.nodes,
-    connections: workflow.connections,
-    settings: cleanedSettings
+    connections: workflow.connections
   };
+
+  // Only add settings if not empty
+  if (Object.keys(cleanedSettings).length > 0) {
+    cleanedWorkflow.settings = cleanedSettings;
+  }
 
   // Add 'active' field only for updates, not for creation (API rejects it)
   if (isUpdate && workflow.active !== undefined) {
