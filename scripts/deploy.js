@@ -170,7 +170,7 @@ function loadWorkflow(filePath) {
  * Clean workflow data for API submission
  * Remove fields that are managed by n8n API
  */
-function cleanWorkflowForAPI(workflow) {
+function cleanWorkflowForAPI(workflow, isUpdate = false) {
   // Clean settings by removing fields not accepted by API
   const cleanedSettings = {};
   if (workflow.settings) {
@@ -188,9 +188,13 @@ function cleanWorkflowForAPI(workflow) {
     name: workflow.name,
     nodes: workflow.nodes,
     connections: workflow.connections,
-    active: workflow.active !== undefined ? workflow.active : false,
     settings: cleanedSettings
   };
+
+  // Add 'active' field only for updates, not for creation (API rejects it)
+  if (isUpdate && workflow.active !== undefined) {
+    cleanedWorkflow.active = workflow.active;
+  }
 
   // Add optional fields if they exist
   if (workflow.pinData) {
@@ -217,6 +221,7 @@ async function deployWorkflow(filePath, remoteWorkflows) {
 
     // Check if workflow already exists on remote
     const existingWorkflow = remoteWorkflows.find(w => w.name === workflowName);
+    const isUpdate = !!existingWorkflow;
 
     if (config.dryRun) {
       if (existingWorkflow) {
