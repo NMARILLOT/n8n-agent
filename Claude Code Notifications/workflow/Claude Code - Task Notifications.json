@@ -1,6 +1,5 @@
 {
   "name": "Claude Code - Task Notifications",
-  "active": false,
   "nodes": [
     {
       "parameters": {

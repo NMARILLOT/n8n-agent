@@ -1,6 +1,5 @@
 {
   "name": "Claude Code - Interactive Control",
-  "active": false,
   "nodes": [
     {
       "parameters": {
