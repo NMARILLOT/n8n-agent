@@ -607,20 +607,36 @@ External MCP Client (Claude Code/Desktop) → n8n MCP Server → n8n Workflow
 
 ### Modifying Existing Workflows
 
-1. **Fetch current state** (understand user's layout):
+**🚨 CRITICAL RULE**: ALWAYS fetch workflows from n8n BEFORE modifying to avoid losing manual changes!
+
+1. **Fetch current workflow from n8n** (MANDATORY FIRST STEP):
    ```bash
-   python3 scripts/fetch-current-layout.py
+   ./scripts/fetch-workflows.sh "Workflow Name"
+   # This creates a backup (.backup) and updates local file with n8n state
+   # Check changes: git diff "path/to/workflow.json"
    ```
 
-2. **Edit local JSON**: Modify workflow files directly
-
-3. **Update documentation**: Update system README.md if needed
-
-4. **Deploy** (auto-commits before deploying):
+2. **Verify manual changes**:
    ```bash
+   git diff "System Name/workflow/Workflow Name.json"
+   # Review any differences between local and n8n versions
+   # User may have made manual fixes in n8n UI that must be preserved!
+   ```
+
+3. **Edit local JSON**: Modify workflow files directly
+   - Merge any important manual changes from step 2
+   - Make your intended modifications
+
+4. **Update documentation**: Update system README.md if needed
+
+5. **Deploy** (auto-commits before deploying):
+   ```bash
+   ./scripts/deploy.sh --dry-run --dir "System Name"  # Verify first
    ./scripts/deploy.sh --dir "System Name"
    git push origin main
    ```
+
+**Why This Matters**: User makes manual corrections in n8n UI. Deploying without fetching first will overwrite those fixes.
 
 ### Layout Modification Workflow
 
